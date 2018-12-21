@@ -124,12 +124,12 @@ public class TestController {
     
     private String loginInfo(HttpServletRequest request, String sessionKey){
     	Map<String, String> map=new HashMap<String, String>();
-//        map.put("Account","quaniya@163.com");
-//        map.put("Password","598910564");
-//        map.put("ParentAppKey","e7c10cd40d289f3956798466b1a00bb5");
-        map.put("Account","jackiehcc@hotmail.com");
-        map.put("Password","1qaz2wsx");
+        map.put("Account","quaniya@163.com");
+        map.put("Password","598910564");
         map.put("ParentAppKey","d32ddqwr2sqf4t3qef4t34fqwq32r2de2ed");
+//        map.put("Account","jackiehcc@hotmail.com");
+//        map.put("Password","1qaz2wsx");
+//        map.put("ParentAppKey","d32ddqwr2sqf4t3qef4t34fqwq32r2de2ed");
     	String Access_token = HttpClinetUtil.postMap("https://api.taxchain.one/eTaxAPIs100/FirstLogin",map,sessionKey);
 		JSONObject json = JSONObject.parseObject(Access_token);
         String returnCode = (String) json.get("ReturnCode");
