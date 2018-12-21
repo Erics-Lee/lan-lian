@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>蓝联退税</title>
+		<link rel="stylesheet" href="css/index.css" />
+		
+	</head>
+	<body>
+		<div id="wrap11">
+			<div class="header">
+				<p class="countryName">2017上海最具投资潜力50佳创业企业</p>
+				<p class="countryDate">2017-12-14</p>
+			</div>
+			<div class="content">
+				<ul id="helpcenterInformationContent1">
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  近日，上海蓝连财务咨询股份有限公司，在历时近4个月近400家企业的激烈角逐评选中，成功入围“2017上海最具投资潜力50佳创业企业”评选榜，公司创始人兼CEO韦小宝先生受邀并参加了本次评选活动的颁奖仪式（上图右五），本次活动由上海市国际股权投资基金协会、上海市黄浦区金融服务办公室、中欧陆家嘴国际金融研究院共同举办，上海市中小企业发展服务中心、上海市中小企业上市促进中心、上海股权投资协会、上海市创业投资行业协会、阿里巴巴创新中心联合主办的“2017外滩金融·上海国际股权投资论坛”(2017 SIPEF) 。</li>
+					
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

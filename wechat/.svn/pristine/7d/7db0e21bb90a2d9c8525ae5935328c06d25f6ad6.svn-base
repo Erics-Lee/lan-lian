@@ -1,0 +1,28 @@
+$.extend($.fn.textbox.defaults.rules, {
+    number : {
+        validator : function(value, param) {
+            return /^[0-9]*$/.test(value);
+        },
+        message : "请输入数字"
+    },
+    checkLength: {
+        validator: function(value, param){
+            return value.length <= param[0];
+        },
+        message: '请输入最大{0}位字符'
+    },
+    date: {
+    	validator: function(value, param){
+    		var a = /^(\d{4})-(\d{2})$/;
+            return a.test(value);
+        },
+        message: '日期格式为YYYY-MM'
+    },
+    dateTwo: {
+    	validator: function(value, param){
+    		var a = /^(\d{2}).(\d{2}).(\d{4})$/;
+            return a.test(value);
+        },
+        message: '日期格式为DD.MM.YYYY'
+    }
+});

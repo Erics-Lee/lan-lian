@@ -1,0 +1,172 @@
+package com.unionblue.wechat.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.unionblue.wechat.model.CompanyInfo;
+import com.unionblue.wechat.service.ICompanyLetterheadService;
+import com.unionblue.wechat.util.HttpClinetUtil;
+import com.unionblue.wechat.util.JsonUtil;
+import com.unionblue.wechat.util.StringUtil;
+
+@Controller
+@RequestMapping(value = "/company")
+public class CompanyLetterheadController {
+	
+    private static final Logger LOG = LoggerFactory.getLogger(CompanyLetterheadController.class);
+    
+	@Autowired
+	private ICompanyLetterheadService service;
+	
+	/**
+     * 添加企业开票信息
+     * @param companyName
+     * @param companyAddress
+     * @param concact
+     * @param telephoneNumber
+     * @param mailbox
+     * @return
+     */
+	@RequestMapping(value = "/addCompanyLetterhead", method = RequestMethod.POST)
+    @ResponseBody
+    public String addCompanyLetterhead(HttpServletRequest request, CompanyInfo info, String rawcompanyname){
+		System.out.println(rawcompanyname);
+		String sessionKey = HttpClinetUtil.getSessionKey(request);
+		if(StringUtil.isEmpty(sessionKey)){
+			return JsonUtil.error("未登录系统 ");
+		}
+        if (StringUtil.isEmpty(info.getRawcompanyname()) || StringUtil.isEmpty(info.getRawaddress())) {
+			LOG.info("公司名称或公司地址为空 !!!");
+			return JsonUtil.error("CompanyName or companyAddress cannot be empty ! ! !");
+		}
+        /*if(StringUtil.isEmpty(info.getPhone1())) {
+			LOG.info("号码: "+info.getPhone1()+",不能为空或格式不正确 !!!");
+			return JsonUtil.error("号码: "+info.getPhone1()+",不能为空或格式不正确 !!!");
+        }*/
+        if(StringUtil.isEmpty(info.getContact())) {
+			LOG.info("联系人不能为空!!!");
+			return JsonUtil.error("联系人不能为空!!!");
+        }
+        if(StringUtil.isEmpty(info.getEmail()) || !StringUtil.isEmail(info.getEmail())) {
+        	LOG.info("邮箱: "+info.getEmail()+",不能为空或格式不正确 !!!");
+        	return JsonUtil.error("邮箱: "+info.getEmail()+",不能为空或格式不正确 !!!");
+        }
+        LOG.info("CompanyInfo: "+info);
+        String companyNo = service.queryCompany(info.getRawcompanyname(),sessionKey);
+        if(!companyNo.equals("0000")){
+        	return JsonUtil.error(companyNo,"600");
+        }else{
+        	System.out.println(info);
+        	String result = service.addCompanyLetterhead(info, sessionKey);        	
+        	return result;
+        }
+    }
+	
+	/**
+     * 通过公司名称模糊查询开票信息
+     * @param companyName
+     * @return
+     */
+	/*@RequestMapping("/queryCompany")
+    @ResponseBody
+    public String queryCompany(HttpServletRequest request, String companyName){
+		String sessionKey = HttpClinetUtil.getSessionKey(request);
+		if(StringUtil.isEmpty(sessionKey)){
+			return JsonUtil.error("未登录系统 ");
+		}
+		if(StringUtil.isEmpty(companyName) || companyName.length() < 4) {
+        	LOG.info("CompanyName format error ! ! ! ");
+        	return null;
+        }else {
+        	String names[] = companyName.split("");
+        	String result = "%";
+        	for(int i=0;i<names.length;i++) {
+        		result += names[i]+"%";    //模糊查询
+        	}
+        	String resultInfo = service.queryCompany(result,sessionKey);
+        	return resultInfo;        	
+        }
+    }*/
+	
+	/**
+     * 用户公司抬头
+     * @param id
+     * @return
+     */
+	@RequestMapping("/selectCompanyLetterheadUser")
+    @ResponseBody
+    public String selectCompanyLetterheadUser(HttpServletRequest request){
+		String sessionKey = HttpClinetUtil.getSessionKey(request);
+		if(StringUtil.isEmpty(sessionKey)){
+			return JsonUtil.error("未登录系统 ");
+		}
+		String result = service.selectCompanyLetterheadUser(sessionKey);
+		return result;
+    }
+	
+	 /**
+     * 通过用户账号查询企业信息
+     * @return
+     */
+	@RequestMapping("/selectCompanyLetterhead")
+    @ResponseBody
+    public String selectCompanyLetterhead(HttpServletRequest request){
+		String sessionKey = HttpClinetUtil.getSessionKey(request);
+		if(StringUtil.isEmpty(sessionKey)){
+			return JsonUtil.error("未登录系统 ");
+		}
+		String Access_token = service.selectCompanyLetterheadById(sessionKey);
+        return Access_token;
+    }
+	
+	/**
+     * 启信宝接口获取公司信息
+     * @param name 企业名称关键字
+     * @return
+     */
+	@RequestMapping("/selectCompanyInfoByName")
+    @ResponseBody
+	public String selectCompanyInfoByName(String name) {
+		String result = service.selectCompanyInfoByName(name);
+		return result;
+	}
+	
+	/**
+	 * 关注企业
+	 * @param CompanyNo
+	 * @return
+	 *//*
+	@RequestMapping("/assignRelatedCompany")
+	@ResponseBody
+	public String assignRelatedCompany(HttpServletRequest request, String CompanyNo){
+		String sessionKey = HttpClinetUtil.getSessionKey(request);
+		String result = service.AssignRelatedCompany(sessionKey,CompanyNo);
+		return result;
+	}*/
+	
+	/** 
+     * 加入或退出公司抬头
+     * @param companyno 公司id
+     * @param isDelete 0:加入该公司 1:退出该公司
+     * @return
+     */
+	@RequestMapping("/assignRelatedCompany")
+    @ResponseBody
+    public String assignRelatedCompany(HttpServletRequest request, String companyno, String isDelete){
+		String sessionKey = HttpClinetUtil.getSessionKey(request);
+		if(StringUtil.isEmpty(sessionKey)){
+			return JsonUtil.error("未登录系统 ");
+		}
+		
+		String result = service.assignRelatedCompany(companyno, isDelete, sessionKey);
+		return result;
+    }
+	
+}

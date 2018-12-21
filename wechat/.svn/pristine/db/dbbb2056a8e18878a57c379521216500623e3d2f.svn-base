@@ -1,0 +1,200 @@
+package com.unionblue.wechat.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.stereotype.Service;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.unionblue.wechat.model.CompanyInfo;
+import com.unionblue.wechat.model.CompanyName;
+import com.unionblue.wechat.service.ICompanyLetterheadService;
+import com.unionblue.wechat.util.HttpClinetUtil;
+import com.unionblue.wechat.util.JsonUtil;
+import com.unionblue.wechat.util.ReturnTokenUtil;
+import com.unionblue.wechat.util.StringUtil;
+
+@Service
+@EnableCaching
+public class CompanyLetterheadServiceImpl implements  ICompanyLetterheadService{
+	
+	private static final Logger LOG = LoggerFactory.getLogger(CompanyLetterheadServiceImpl.class);
+	
+	@Value("${qixin.appkey}")
+    private String appkey;
+	
+	@Value("${api.url}")
+    private String url;
+
+	@Override
+	public String queryCompany(String companyName, String sessionKey) {
+		Map<String, String> map=new HashMap<String, String>();
+        map.put("KeyWord",companyName);
+        String Access_token = HttpClinetUtil.doGet(url+"/QueryCompany", map, sessionKey);
+        LOG.info("result:"+Access_token);
+        @SuppressWarnings("unchecked")
+		List<CompanyInfo> list = (List<CompanyInfo>) ReturnTokenUtil.getReturnTokenUtilList(Access_token, CompanyInfo.class);
+        String companyNo = "0000";
+        if(list != null && list.size() > 0){
+        	for(int i=0;i<list.size();i++){
+            	if(companyName.equals(list.get(i).getRawcompanyname())){
+            		companyNo = list.get(i).getCompanyno();
+            		break;
+            	}
+            }
+        }
+        return companyNo;
+	}
+
+	@Override
+	public String selectCompanyLetterheadById(String sessionKey) {
+		Map<String, String> map=new HashMap<String, String>();
+        map.put("IsBase64Code","0");
+        String Access_token1 = HttpClinetUtil.doGet(url+"/CompanyBaseProfilesQuery",map,sessionKey);
+		LOG.info("result:"+Access_token1);
+		JSONObject json = JSONObject.parseObject(Access_token1);
+        String returnCode = (String) json.get("ReturnCode");
+        boolean flag = true;
+        CompanyInfo info = new CompanyInfo();
+        info.setStatus(-1);
+        if(!StringUtil.isEmpty(returnCode) && (returnCode.equals("000000") || returnCode.equals("0000"))) {
+        	String resultInfo = (String) json.get("ReturnJson");
+        	info = JSON.parseObject(resultInfo, CompanyInfo.class);
+        	if(info != null){
+        		flag = false;
+        		return selectCompanyLetterheadUser(sessionKey);
+        	}
+        }
+        if(flag){
+        	String Access_token2 = HttpClinetUtil.doGet(url+"/QueryAgentCompanies", null, sessionKey);
+        	JSONObject json2 = JSONObject.parseObject(Access_token2);
+        	LOG.info("result:"+Access_token2);
+        	String returnCode2 = (String) json2.get("ReturnCode");
+        	if(!StringUtil.isEmpty(returnCode2) && (returnCode2.equals("000000") || returnCode2.equals("0000"))) {
+        		String resultInfo = (String) json.get("ReturnJson");
+            	List<CompanyInfo> list = JSON.parseArray(resultInfo, CompanyInfo.class);
+            	if(list != null && list.size() > 0){
+            		info = list.get(0);
+            		info.setStatus(3);
+            	}
+        	}
+        }
+        return JsonUtil.success(info);
+	}
+
+	@Override
+	public String addCompanyLetterhead(CompanyInfo info, String sessionKey) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("rawcompanyname",info.getRawcompanyname());
+		map.put("rawaddress",info.getRawaddress());
+		if(!StringUtil.isEmpty(info.getCompayname())){
+			map.put("compayname",info.getCompayname());			
+		}
+		if(!StringUtil.isEmpty(info.getEnglishaddress())){
+			map.put("englishaddress",info.getEnglishaddress());
+		}
+		String imageBase64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAcCAYAAAAEN20fAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAL/SURBVEhLzZdbUuswDIa7uKyGZClN0m2kadkAw9NpcylsAIYmac8DA8O99MZNR7+cGDsDb9Aez6iyZUn/lzgPbof+k6FBLi8v6fT0lI6Pj+no6OhXDRrQgmYzBOT8/JzyPKerqyt6f3+XDYyPj496psZPraFxfX0tmtDG6IAqyzJ6e3uTxF0aNKENhg5eEd4ENkC6aw9tMHRwXi8vLxIE4a796+urfDMdfDwI7NPAICCg2qdpEBwNAvvyGmS73UpQ+TkNPY8O//I665HjOIbVcck7oZ43pLnk9+hE19v+JHSoF3If75DmX+zDWyC2KZjhgBuEEx2fhBybK+HJdqJAsDcfkucgZvYwa3iOhzJ6maZBNpvN15ZycZDTLPbIi2eUBx4NZjMaMEi+yRlkQDMjtxcPGMh8g21DvdG/Ng2yXq8lIH6GZiEL8ToNBaTqt0Bc7OcUugrEqm95PESYfr8Pb4HAVquVmgOARcrEAOlXlPkAqRTIGiAxVcjF0yK/qTf6oRYgVn9jH16DINBYkyBWg5QCUmqQmEGyVaZAJF/NS3jrKEIaACT5pn+91iDL5VKCnz7lhiGl44AcP6MiUs1SBomrkkECAQlEvM7nedHUcx3ApR8/jBcVrf62t0AsK2Py/FQaOn7MwgxQLhVIWQhIyuIAgThAZM518ZjXAGFxq5fZv2Ua5Pn52bJp5JIbTdV6xDDymgNKrLyExfs01fOAzaV+oWp0Pfbq2qTrUDBq6j9NgywWCwk0PumqhouRrwAQL/rkOr40VHkJ+QcKZLGAmEP+qO4jdeo7ARAAlK/7tvQ0yNPTkwSVv6DogAXR7CCiCx1n/4dj3T7v1x9jd6ziFxG53YTzxuQLAAtOjbom3u5Xewtkn6ZBHh8f92oCgkvJ3d2dBB4eHnbu7+/v1cUI17SyLHVw176qKnVVxMU1SRK6vb2VjV0aNKEtl2dc5c/OziRQFIVs4qgaQ8FPr29ubkQLmtCWvxPyywNUeEU4L3w8v2nQgBY0m/Gf/OUk+gdIlHBhv75NoQAAAABJRU5ErkJggg==";
+		map.put("status","0");
+		map.put("companyno","0");
+		map.put("uniformnumber","0");
+		map.put("imageBase64",imageBase64);
+		map.put("registercountry","156");
+		map.put("contact",info.getContact());
+		map.put("phone1",info.getPhone1());
+		map.put("email",info.getEmail());
+		//B0001.提交公司基本资料(CompanyBaseProfilesUpdate)   
+		String Access_token = HttpClinetUtil.postMap(url+"/CompanyBaseProfilesUpdate",map,sessionKey);
+		//B0002.提交公司详细资料(CompanyDetailedProfilesUpdate)   
+		System.out.println(map.get("contact"));
+		System.out.println(map.get("email"));
+		String Access_token2 = HttpClinetUtil.postMap(url+"/CompanyDetailedProfilesUpdate",map,sessionKey);
+		LOG.info("result:"+Access_token);
+		LOG.info("result:"+Access_token2);
+		JSONObject json = JSONObject.parseObject(Access_token);
+		String returnCode = (String) json.get("ReturnCode");
+        if(!StringUtil.isEmpty(returnCode) && (returnCode.equals("000000") || returnCode.equals("0000"))) {
+        	return JsonUtil.success((String) json.get("ReturnMessage"));
+        }else {
+        	return JsonUtil.error((String) json.get("ReturnMessage"));
+        }
+	}
+
+	@Override
+	public String assignRelatedCompany(String companyno, String isDelete, String sessionKey) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("CompanyNo",companyno);
+		map.put("IsDelete", isDelete); //0添加  1删除
+		String Access_token = HttpClinetUtil.doGet(url+"/AssignRelatedCompany", map, sessionKey);
+		LOG.info("result:"+Access_token);
+		JSONObject json = JSONObject.parseObject(Access_token);
+		String returnCode = (String) json.get("ReturnCode");
+        if(!StringUtil.isEmpty(returnCode) && (returnCode.equals("000000") || returnCode.equals("0000"))) {
+        	return JsonUtil.success((String) json.get("ReturnMessage"));
+        }else {
+        	return JsonUtil.error((String) json.get("ReturnMessage"));
+        }
+	}
+
+	@Override
+	public String selectCompanyLetterheadUser(String sessionKey) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("IsBase64Code", "0");
+		String Access_token = HttpClinetUtil.doGet(url+"/CompanyBaseProfilesQuery",map,sessionKey);
+		String Access_token2 = HttpClinetUtil.doGet(url+"/CompanyDetailedProfilesQuery",null,sessionKey);
+		LOG.info("result:"+ReturnTokenUtil.getReturnTokenUtilObject(Access_token, CompanyInfo.class));
+		LOG.info("result:"+ReturnTokenUtil.getReturnTokenUtilObject(Access_token2, CompanyInfo.class));
+		JSONObject json1 = JSONObject.parseObject(ReturnTokenUtil.getReturnTokenUtilObject(Access_token, CompanyInfo.class));
+		JSONObject json2 = JSONObject.parseObject(ReturnTokenUtil.getReturnTokenUtilObject(Access_token2, CompanyInfo.class));
+		JSONObject json = new JSONObject();
+		json.putAll(JSONObject.parseObject(json1.get("data").toString()));
+		json.putAll(JSONObject.parseObject(json2.get("data").toString()));
+		System.out.println(json);
+		return JsonUtil.success(json);
+	}
+
+	@Override
+	//@Cacheable(value = "name#600" )
+	public String AssignRelatedCompany(String sessionKey, String CompanyNo) {
+		Map map = new HashMap();
+		map.put("CompanyNo",CompanyNo);
+		map.put("IsDelete","1");
+		String Access_token = HttpClinetUtil.doGet("https://api.taxchain.one/eTaxAPIs100/AssignRelatedCompany", map, sessionKey);
+		JSONObject Json = JSONObject.parseObject(Access_token);
+		String ReturnCode = (String) Json.get("ReturnCode");
+		if (ReturnCode == "0000") {
+			return JsonUtil.success("企业退订成功！");
+		} else {
+			return JsonUtil.error("企业退订失败！");
+		}
+	}
+
+	@Override
+	//@Cacheable(value = "name#600" )
+	public String selectCompanyInfoByName(String name) {
+		System.out.println(name);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", name);
+		map.put("appkey", appkey);
+		String Access_token = HttpClinetUtil.doGet("http://api.qixin.com/APIService/v2/enterprise/searchList",map,"");
+		System.out.println(Access_token);
+		JSONObject json = JSONObject.parseObject(Access_token);
+        String status = (String) json.get("status");
+        if(!StringUtil.isEmpty(status) && status.equals("200")) {
+        	JSONObject data = (JSONObject) json.get("data");
+        	List<CompanyName> list = JSON.parseArray(data.get("items").toString(), CompanyName.class);
+        	return JsonUtil.success(list);
+        }else if(!StringUtil.isEmpty(status) && !status.equals("200")) {
+        	return JsonUtil.error((String) json.get("message"));
+        }else {
+        	return JsonUtil.error("接口异常，请联系管理员!");
+        }
+	}
+
+}

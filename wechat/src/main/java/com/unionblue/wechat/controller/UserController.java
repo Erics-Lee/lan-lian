@@ -1,0 +1,236 @@
+package com.unionblue.wechat.controller;
+
+import com.alibaba.fastjson.JSONObject;
+import com.unionblue.wechat.service.UserService;
+import com.unionblue.wechat.util.HttpClinetUtil;
+import com.unionblue.wechat.util.JsonUtil;
+import com.unionblue.wechat.util.StringUtil;
+import com.unionblue.wechat.wechatService.WeixinUrlFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.util.UUID;
+
+/**
+ * Created by 18501 on 2018/8/31.
+ */
+@Controller
+@RequestMapping(value = "/user")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    protected static final Logger logger = LoggerFactory.getLogger(WeixinUrlFilter.class);
+
+    /**
+     * 个人信息查询
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws ParseException
+     */
+    @RequestMapping(value = "accountExtendProfileQuery")
+    @ResponseBody
+    public String accountExtendProfileQuery(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+        try {
+            String sessionKey = HttpClinetUtil.getSessionKey(request);
+            String result = userService.accountExtendProfileQuery(sessionKey);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonUtil.error("个人信息查询失败");
+        }
+    }
+
+    /**
+     * 个人昵称修改
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws ParseException
+     */
+    @RequestMapping(value = "accountSimpleProfileUpdate")
+    @ResponseBody
+    public String accountSimpleProfileUpdate(HttpServletRequest request, HttpServletResponse response, String nickname) throws ParseException {
+        try {
+            String sessionKey = HttpClinetUtil.getSessionKey(request);
+            String result = userService.accountSimpleProfileUpdate(sessionKey,nickname);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonUtil.error("个人昵称修改失败");
+        }
+    }
+
+    /**
+     * 个人信息修改
+     *
+     * @param request
+     * @param response
+     * @param mobilephonenumber    手机号码
+     * @param secndemailaddress    邮箱
+     * @return
+     * @throws ParseException
+     */
+    @RequestMapping(value = "accountExtendProfileUpdate")
+    @ResponseBody
+    public String accountExtendProfileUpdate(HttpServletRequest request, HttpServletResponse response, String mobilephonenumber, String secndemailaddress) throws ParseException {
+        try {
+            String sessionKey = HttpClinetUtil.getSessionKey(request);
+            String result = userService.accountExtendProfileUpdate(sessionKey,mobilephonenumber,secndemailaddress);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonUtil.error("个人信息修改失败");
+        }
+    }
+
+    /**
+     * 个人详情统计
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws ParseException
+     */
+    @RequestMapping(value = "userDetail")
+    @ResponseBody
+    public String userDetail(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+        try {
+            String sessionKey = HttpClinetUtil.getSessionKey(request);
+            String result = userService.userDetail(sessionKey);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonUtil.error("个人统计查询失败");
+        }
+    }
+    
+    /**
+     * 用户注册获取到验证码
+     * @return
+     * @throws ParseException
+     */
+    @RequestMapping(value = "registerEMail")
+    @ResponseBody
+    public String registerEMail(HttpServletRequest request, String account) throws Exception {
+        try {
+        	String societyIDToken = request.getSession().getAttribute("openId").toString();//"otQ261cenuncZj95ajhU6NOJHicw";
+        	String parentAppKey = "d32ddqwr2sqf4t3qef4t34fqwq32r2de2ed";
+            String result = userService.registerEMail(account, societyIDToken, parentAppKey);
+            return result;
+        } catch (Exception e) {
+        }
+        return "";
+    }
+    
+    /**
+     * 用户验证码重新获取
+     *
+     * @param account用户邮箱
+     * @return
+     * @throws ParseException
+     */
+    @RequestMapping(value = "sendVerificateCode")
+    @ResponseBody
+    public String sendVerificateCode(HttpServletRequest request, String account) throws Exception {
+        try {
+        	String parentAppKey = "d32ddqwr2sqf4t3qef4t34fqwq32r2de2ed";
+            String result = userService.sendVerificateCode(account, parentAppKey);
+            return result;
+        } catch (Exception e) {
+        }
+        return "";
+    }
+    
+    /**
+     * 用户注册验证码验证
+     * @return
+     * @throws ParseException
+     */
+    @RequestMapping(value = "accountCertification")
+    @ResponseBody
+    public String accountCertification(HttpServletRequest request, String account, String verificationCode) throws Exception {
+        try {
+        	if(StringUtil.isEmpty(account) || StringUtil.isEmpty(verificationCode)){
+        		return JsonUtil.error("邮箱和验证码不能为空 !!!");
+        	}
+            String result = userService.accountCertification(account, verificationCode);
+            return result;
+        } catch (Exception e) {
+        }
+        return "";
+    }
+    
+    /**
+     * 获取用户信息
+     *
+     * @return
+     * @throws ParseException
+     */
+    @RequestMapping(value = "societyQueryAccount")
+    @ResponseBody
+    public String societyQueryAccount(HttpServletRequest request) throws Exception {
+        try {
+        	String societyIDToken = request.getSession().getAttribute("openId").toString();
+            String result = userService.societyQueryAccount(societyIDToken);
+            return result;
+        } catch (Exception e) {
+        }
+        return "";
+    }
+    
+    @RequestMapping("/login")
+    @ResponseBody
+    public String login(HttpServletRequest request, String account){
+    	String sessionKey = HttpClinetUtil.getSessionKey(request);
+		if(!StringUtil.isEmpty(sessionKey)){
+			return JsonUtil.success("已登陆状态 ");
+		}
+    	String societyIDToken = request.getSession().getAttribute("openId").toString();
+    	String parentAppKey = "d32ddqwr2sqf4t3qef4t34fqwq32r2de2ed";
+    	sessionKey = UUID.randomUUID().toString();
+    	String result = userService.firstLogin(societyIDToken, parentAppKey, account, sessionKey);
+    	JSONObject json = JSONObject.parseObject(result);
+        String returnCode = (String) json.get("ReturnCode");
+        if(!StringUtil.isEmpty(returnCode) && (returnCode.equals("000000") || returnCode.equals("0000"))) {
+        	request.getSession().setAttribute("sessionKey", sessionKey);
+        	return JsonUtil.success();
+        }else if(!StringUtil.isEmpty(returnCode) && returnCode.equals("0045")){
+        	return JsonUtil.error((String) json.get("ReturnMessage"), "600");
+        }else{
+        	return JsonUtil.error((String) json.get("ReturnMessage"));
+        }
+    }
+    
+    /**
+     * 获取用户账号状态
+     *
+     * @return
+     * @throws ParseException
+     */
+    /*@RequestMapping(value = "societyQueryAccount")
+    @ResponseBody
+    public String societyQueryAccount(HttpServletRequest request) throws Exception {
+        try {
+        	String societyIDToken = request.getSession().getAttribute("openId").toString();
+            String result = userService.societyQueryAccount(societyIDToken);
+            return result;
+        } catch (Exception e) {
+        }
+        return "";
+    }*/
+    
+    
+
+}
