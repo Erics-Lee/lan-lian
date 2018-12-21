@@ -27,11 +27,11 @@ import java.util.concurrent.TimeUnit;
 @Controller
 public class TestController {
 
-    @Autowired
-    private ITestService service;
+	@Autowired
+	private ITestService service;
     @Autowired
     private WechatSservice wechatSservice;
-
+    
     @RequestMapping("/hello")
     public String index(HttpServletRequest request){
         request.setAttribute("mima", "hello world111");
@@ -86,67 +86,59 @@ public class TestController {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
-
+    
     @RequestMapping("/tttt")
     @ResponseBody
     public String tttt(HttpServletRequest request,String info){
-        System.out.println(redisTemplate.getExpire("test::"+info));
-        String result = service.testInfo(info);
-        if(!StringUtil.isEmpty(result) && redisTemplate.getExpire("test::"+info) == -1) {
-            redisTemplate.expire("test::"+info, 20, TimeUnit.SECONDS);
-        }
+    	System.out.println(redisTemplate.getExpire("test::"+info));
+    	String result = service.testInfo(info);
+    	if(!StringUtil.isEmpty(result) && redisTemplate.getExpire("test::"+info) == -1) {
+    		redisTemplate.expire("test::"+info, 20, TimeUnit.SECONDS);
+    	}
         return result;
         //return "Hello World!";
     }
+
+
 
     @RequestMapping("/login")
     @ResponseBody
     public String login(HttpServletRequest request){
         String sessionKey = "";
         try {
-            sessionKey = request.getSession().getAttribute("sessionKey").toString();
-            String Access_token = HttpClinetUtil.postMap("http://hyisoft.f3322.net:8088/eTaxAPIs/eTaxAPIs100/LoginStatus",null,sessionKey);
-            JSONObject json = JSONObject.parseObject(Access_token);
-            String returnCode = (String) json.get("ReturnCode");
-            if(!StringUtil.isEmpty(returnCode) && (returnCode.equals("000000") || returnCode.equals("0000"))) {
-                return JsonUtil.success("已登陆");
-            }else{
-                return loginInfo(request, sessionKey);
-            }
-        } catch (Exception e) {
-            sessionKey = UUID.randomUUID().toString();
-            return loginInfo(request, sessionKey);
-        }
+        	sessionKey = request.getSession().getAttribute("sessionKey").toString();
+        	String Access_token = HttpClinetUtil.postMap("http://hyisoft.f3322.net:8088/eTaxAPIs/eTaxAPIs100/LoginStatus",null,sessionKey);
+        	JSONObject json = JSONObject.parseObject(Access_token);
+	        String returnCode = (String) json.get("ReturnCode");
+	        if(!StringUtil.isEmpty(returnCode) && (returnCode.equals("000000") || returnCode.equals("0000"))) {
+	        	return JsonUtil.success("已登陆");	        	
+	        }else{
+	        	return loginInfo(request, sessionKey);
+	        }
+		} catch (Exception e) {
+			sessionKey = UUID.randomUUID().toString();
+			return loginInfo(request, sessionKey);
+		}
         //return "Hello World!";
     }
-
+    
     private String loginInfo(HttpServletRequest request, String sessionKey){
-        Map<String, String> map=new HashMap<String, String>();
-        try{
+    	Map<String, String> map=new HashMap<String, String>();
 //        map.put("Account","quaniya@163.com");
 //        map.put("Password","598910564");
 //        map.put("ParentAppKey","e7c10cd40d289f3956798466b1a00bb5");
-//        map.put("Account","jackiehcc@hotmail.com");
-//        map.put("Password","1qaz2wsx");
-//        map.put("ParentAppKey","d32ddqwr2sqf4t3qef4t34fqwq32r2de2ed");
-        map.put("Account","quaniya@163.com");
-        map.put("Password","598910564");
+        map.put("Account","jackiehcc@hotmail.com");
+        map.put("Password","1qaz2wsx");
         map.put("ParentAppKey","d32ddqwr2sqf4t3qef4t34fqwq32r2de2ed");
-        String Access_token = HttpClinetUtil.postMap("https://api.taxchain.one/eTaxAPIs100/FirstLogin",map,sessionKey);
-            JSONObject json = JSONObject.parseObject(Access_token);
-            String returnCode = (String) json.get("ReturnCode");
-            if(!StringUtil.isEmpty(returnCode) && (returnCode.equals("000000") || returnCode.equals("0000"))) {
-                request.getSession().setAttribute("sessionKey", sessionKey);
-                return JsonUtil.success("系统登入成功");
-            } else {
-                String ReturnMessage = (String) json.get("ReturnMessage");
-                return JsonUtil.error("ReturnMessage");
-            }
-        }catch (Exception e) {
-            return JsonUtil.error("系统登入失败");
+    	String Access_token = HttpClinetUtil.postMap("https://api.taxchain.one/eTaxAPIs100/FirstLogin",map,sessionKey);
+		JSONObject json = JSONObject.parseObject(Access_token);
+        String returnCode = (String) json.get("ReturnCode");
+        if(!StringUtil.isEmpty(returnCode) && (returnCode.equals("000000") || returnCode.equals("0000"))) {
+        	request.getSession().setAttribute("sessionKey", sessionKey);
         }
+		return Access_token ;
     }
-
+    
     @RequestMapping("/uploadfile")
     @ResponseBody
     public String uploadfile(HttpServletRequest request,String info){
@@ -157,7 +149,7 @@ public class TestController {
         //HttpClinetUtil.setSessionKey(request.getSession().getId());
         String Access_token =HttpClinetUtil.doGet("http://hyisoft.f3322.net:8088/eTaxAPIs/eTaxAPIs100/CompanyBaseProfilesQuery",map,request.getSession().getId());
         return Access_token ;
-        //return "Hello World!";
+        //return "Hello World!"; 
     }
 
 }
