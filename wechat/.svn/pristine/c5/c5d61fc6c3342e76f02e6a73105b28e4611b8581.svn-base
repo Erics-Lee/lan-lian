@@ -57,18 +57,12 @@ public class Common {
 	public static CompanyInfo selectCompanyLetterheadUser(String url, String sessionKey, CompanyInfo info) {
 		try {
 			String Access_token = HttpClinetUtil.doGet(url+"/CompanyDetailedProfilesQuery",null,sessionKey);
-			
-			JSONObject json = JSONObject.parseObject(Access_token);
-	        String returnCode = (String) json.get("ReturnCode");
-	        CompanyInfo info2 = new CompanyInfo();
-	        if(!StringUtil.isEmpty(returnCode) && (returnCode.equals("000000") || returnCode.equals("0000"))) {
-	        	String resultInfo = (String) json.get("ReturnJson");
-	        	info2 = JSON.parseObject(resultInfo, CompanyInfo.class);
-	        	if(info2 != null){
-	        		info.setContact(info2.getContact());
-					info.setEmail(info2.getEmail());
-	        	}
-	        }		
+			@SuppressWarnings("unchecked")
+			List<CompanyInfo> list1 = (List<CompanyInfo>) ReturnTokenUtil.getReturnTokenUtilList(Access_token, CompanyInfo.class);
+			if(list1 != null && list1.size() > 0){
+				info.setContact(list1.get(0).getContact());
+				info.setEmail(list1.get(0).getEmail());
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -222,8 +222,6 @@ public class UserServiceImpl implements UserService{
             map.put("uniformnumber", companyInfo.getUniformnumber());
             map.put("imageBase64", companyInfo.getImageBase64());
             map.put("status", companyInfo.getStatus());
-            map.put("contact", companyInfo.getContact());
-            map.put("email", companyInfo.getEmail());
 
             String Access_token = HttpClinetUtil.doGet("https://api.taxchain.one/eTaxAPIs100/AccountSimpleProfileQuery", null, sessionKey);
             JSONObject json = JSONObject.parseObject(Access_token);
@@ -233,6 +231,15 @@ public class UserServiceImpl implements UserService{
             //昵称
             String nickname = (String) ReturnJsonStr.get("nickname");
             map.put("nickname", nickname);
+
+            Access_token = HttpClinetUtil.doGet("https://api.taxchain.one/eTaxAPIs100/LoginStatus", null, sessionKey);
+            json = JSONObject.parseObject(Access_token);
+            ReturnJson = (String) json.get("ReturnJson");
+            ReturnJsonStr = JSONObject.parseObject(ReturnJson);
+
+            //昵称
+            String Account = (String) ReturnJsonStr.get("Account");
+            map.put("Account", Account);
 
             return JsonUtil.success(map);
         }
