@@ -19,7 +19,7 @@
 		<div id="openId" style="display:none;" th:text="${session.openId}"></div>
 		<div id="sessionKey" style="display:none;" th:text="${session.sessionKey}"></div>
 		
-		<div id="emailModel" style="display:none;" th:text="${session.account}"></div>
+		<div id="emailModel" style="display:none;" th:text="${account}"></div>
 		<script type="text/javascript" src="js/login.js"></script>
 		<script type="text/javascript">
 		    var sessionKey = $("#sessionKey").html();
@@ -27,9 +27,8 @@
 				/*openId('otQ261cenuncZj95ajhU6NOJHi12');*/
 				console.log($("#openId").html());
 			});
- 			var account = $("#emailModel").html();
- 			console.log(account);
- 			//设置openId,共测试使用
+
+			//设置openId,共测试使用
 			/*function openId(openId) {
 				var result = "";
 				var data = {
@@ -220,7 +219,6 @@
 										<img src="img/rightArr2.png" />
 									</li>-->
 								</ul>
-								<div style="width: 100%;height: 60px;"></div>
 							</div>
 							<div class="invoiceInfor2">
 								<div class="invoiceInfor2Box">
@@ -228,7 +226,6 @@
 									<ul class="invoiceInformation" id="invoiceInformation">
 
 									</ul>
-									<div style="width: 100%;height: 60px;"></div>
 									<div class="invoiceInfor2Btn">
 										<div class="invoiceInfor2Btn1">
 											<div id="invoiceInfor2Btn1Div" class="active12"></div>
@@ -258,7 +255,6 @@
 										<img src="img/rightArr2.png" />
 									</li>-->
 								</ul>
-								<div style="width: 100%;height: 60px;"></div>
 							</div>
 						</div>
 					</div>
@@ -282,7 +278,6 @@
 								<div class="found">找专家</div>
 							</div>-->
 						</div>
-						<div style="width: 100%;height: 60px;"></div>
 					</div>
 				</div>
 			</div>
@@ -763,10 +758,6 @@
 					}
 
 				}
-				
-				$("input").bind("blur",function(){
-					window.scroll(0,0);
-				})
 			});
 			$("#btn").bind("click", function() {
 				var email = document.getElementById("componyEmail").value;
@@ -779,16 +770,6 @@
 				
 
 			})
-
-			$(".componyInfo4")[0].onchange = function() {
-				var str = $("#componyEmail").val();
-				var re = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
-				if(re.test(str)) {
-					return;
-				} else {
-					alert("邮箱填写格式不正确");
-				}
-			}
 
 			//企业信息页面
 			function userRegistration(sessionKey, rawcompanyname, rawaddress, compayname, englishaddress, contact, email, verificationCode) {

@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
                 hashMap.put("BankName", "民生银行");
                 hashMap.put("BankAccount", "0");
                 hashMap.put("IsDefault", "1");
-                Access_token = HttpClinetUtil.postMap("https://api.taxchain.one/eTaxAPIs100/BankAccountUpdate", hashMap, sessionKey);
+                Access_token = HttpClinetUtil.doGet("https://api.taxchain.one/eTaxAPIs100/BankAccountUpdate", hashMap, sessionKey);
 
                 Access_token = HttpClinetUtil.doGet("https://api.taxchain.one/eTaxAPIs100/BankAccountDefault", null, sessionKey);
                 json = JSONObject.parseObject(Access_token);

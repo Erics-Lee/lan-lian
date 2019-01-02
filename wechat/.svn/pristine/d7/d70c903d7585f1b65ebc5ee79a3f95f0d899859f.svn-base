@@ -220,7 +220,6 @@
 										<img src="img/rightArr2.png" />
 									</li>-->
 								</ul>
-								<div style="width: 100%;height: 60px;"></div>
 							</div>
 							<div class="invoiceInfor2">
 								<div class="invoiceInfor2Box">
@@ -228,7 +227,6 @@
 									<ul class="invoiceInformation" id="invoiceInformation">
 
 									</ul>
-									<div style="width: 100%;height: 60px;"></div>
 									<div class="invoiceInfor2Btn">
 										<div class="invoiceInfor2Btn1">
 											<div id="invoiceInfor2Btn1Div" class="active12"></div>
@@ -258,7 +256,6 @@
 										<img src="img/rightArr2.png" />
 									</li>-->
 								</ul>
-								<div style="width: 100%;height: 60px;"></div>
 							</div>
 						</div>
 					</div>
@@ -282,7 +279,6 @@
 								<div class="found">找专家</div>
 							</div>-->
 						</div>
-						<div style="width: 100%;height: 60px;"></div>
 					</div>
 				</div>
 			</div>

@@ -119,22 +119,11 @@ public class CompanyLetterheadController {
     @ResponseBody
     public String selectCompanyLetterhead(HttpServletRequest request){
 		String sessionKey = HttpClinetUtil.getSessionKey(request);
-		boolean hasOpenId = false;
-		try {
-			String societyIDToken = request.getSession().getAttribute("openId").toString();	
-			hasOpenId = true;
-		} catch (Exception e) {
-			hasOpenId = false;
-		}
-		if(StringUtil.isEmpty(sessionKey) && hasOpenId){
+		if(StringUtil.isEmpty(sessionKey)){
 			LOG.info("aaaaaaaaaaaaaaaaa");
 			CompanyInfo info = new CompanyInfo();
 	        info.setStatus(-1);
 	        return JsonUtil.success(info);
-		}else if(StringUtil.isEmpty(sessionKey) && !hasOpenId){
-			LOG.info("ccccccc");
-			Object info = "尚未登入系统";
-	        return JsonUtil.error(info);
 		}
 		LOG.info("bbbbbbbbbbbbb");
 		String Access_token = service.selectCompanyLetterheadById(sessionKey);

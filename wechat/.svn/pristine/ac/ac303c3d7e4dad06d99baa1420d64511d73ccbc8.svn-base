@@ -21,8 +21,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * Created by 18501 on 2018/9/19.
  */
@@ -83,13 +81,8 @@ public class UserServiceImpl implements UserService{
             String rawcompanyname = (String) companynoAyyay.get("rawcompanyname");
             result.put("rawcompanyname", rawcompanyname);*/
             CompanyInfo info = Common.getCompanyInfo(url, sessionKey);
-            if(!StringUtil.isEmpty(info.getCompanyno())){
-            	result.put("companyno", info.getCompanyno());
-            	result.put("rawcompanyname", info.getRawcompanyname());            	
-            }else{
-            	result.put("companyno", "");
-            	result.put("rawcompanyname", "");    
-            }
+            result.put("companyno", info.getCompanyno());
+            result.put("rawcompanyname", info.getRawcompanyname());
 
             return JsonUtil.success(result);
         }
@@ -273,20 +266,6 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public String registerEMail2(String account, String passwd, String parentAppKey) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("Agree", "1");
-		map.put("Account", account);
-		map.put("Password", passwd);
-		map.put("ParentAppKey", parentAppKey);
-		System.out.println(map.get("Account"));
-		String Access_token = HttpClinetUtil.postMap(url+"/RegisterEMail", map, "");
-		System.out.println(Access_token);
-		String result = ReturnTokenUtil.getReturnTokenUtilSuccess(Access_token);
-		return result;
-	}
-	
-	@Override
 	public String sendVerificateCode(String account, String parentAppKey) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("Account", account);
@@ -311,21 +290,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String societyQueryAccount(HttpServletRequest request, String societyIDToken) {
+    public String societyQueryAccount(String societyIDToken) {
         Map<String, String> map = new HashMap<String, String>();
 		map.put("SocietyID", "1");
 		map.put("SocietyIDToken", societyIDToken);
 		String Access_token = HttpClinetUtil.doGet(url+"/SocietyQueryAccount", map, "");
-		JSONObject json = JSONObject.parseObject(Access_token);
-        String returnCode = (String) json.get("ReturnCode");
-        LOG.info(Access_token);
-        if(!StringUtil.isEmpty(returnCode) && (returnCode.equals("000000") || returnCode.equals("0000"))) {
-        	String resultInfo = (String) json.get("ReturnJson");
-        	JSONObject ReturnJsonStr = JSONObject.parseObject(resultInfo);
-            String account = (String) ReturnJsonStr.get("account");
-            LOG.info("account: "+account);
-            request.getSession().setAttribute("account", account);
-        }
 		return JsonUtil.success(Access_token);
 	}
 

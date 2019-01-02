@@ -4,7 +4,6 @@ import com.thoughtworks.xstream.XStream;
 import com.unionblue.wechat.model.WechatUser;
 import com.unionblue.wechat.service.WechatSservice;
 import com.unionblue.wechat.util.SignUtil;
-import com.unionblue.wechat.util.StringUtil;
 import com.unionblue.wechat.wechatService.message.DefaultMessageHandlerImpl;
 import com.unionblue.wechat.wechatService.message.IMessageHandler;
 import com.unionblue.wechat.wechatService.message.InputMessage;
@@ -160,15 +159,7 @@ public class WechatController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String user(String code, Model model, HttpSession session,HttpServletRequest request) {
-    	try {
-    		String openId = request.getSession().getAttribute("openId").toString();
-    		if(!StringUtil.isEmpty(openId) && openId.length() > 10){
-    			logger.info("1获取到code值---->"+code);
-    			model.addAttribute("time", System.currentTimeMillis());
-    	        return "/index";
-    		}
-		} catch (Exception e) {
-		}
+        logger.info("1获取到code值---->"+code);
         code= request.getParameter("code");
         logger.info("2获取到code值---->"+code);
         String openid = wechatSservice.codeGetOpenid(code);

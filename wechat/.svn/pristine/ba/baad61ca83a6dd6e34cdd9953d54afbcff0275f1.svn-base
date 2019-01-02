@@ -1309,12 +1309,10 @@ $(document).ready(function() {
 	/*上传发票1打开和关闭*/
 	$(".taxInformation2 .componyRenzheng").bind("click",function(){
 		$("#maskBox").css("display", "block");
-		$("#maskBox .enterprise").css("display", "block");
 		$(".enterprise .enterprise1").css("display", "block");
 	})
 	$(".enterprise1 .photoBtn2").bind("click",function(){
 		$("#maskBox").css("display", "none");
-		$("#maskBox .enterprise").css("display", "none");
 		$(".enterprise .enterprise1").css("display", "none");
 	})
 	$("#photoBtn1").bind("click",function(){
@@ -1333,7 +1331,6 @@ $(document).ready(function() {
 				if(addCompony.code==200){
 					$("#loading").css("display","none");
 					$("#maskBox").css("display", "block");
-					$("#maskBox .enterprise").css("display", "block");
 					$(".enterprise .enterprise1").css("display", "none");
 					$("#maskBox .phoneBox5").css("display", "none");
 					$(".enterprise .enterprise3").css("display", "block");
@@ -1348,7 +1345,6 @@ $(document).ready(function() {
 	})
 	$(".enterprise3 .photoBtn1").bind("click",function(){
 		$("#maskBox").css("display", "none");
-		$("#maskBox .enterprise").css("display", "none");
 		$(".enterprise .enterprise3").css("display", "none");
 		window.location.reload();
 	})
@@ -1356,18 +1352,15 @@ $(document).ready(function() {
 	/*上传发票2,重新上传*/
 	$(".taxInformation2 .componyRenzheng2").bind("click",function(){
 		$("#maskBox").css("display", "block");
-		$("#maskBox .enterprise").css("display", "block");
 		$(".enterprise .enterprise1").css("display", "block");
 	})
 	/*认证成功*/
 	$(".taxInformation2 .componyRenzheng1").bind("click",function(){
 		$("#maskBox").css("display", "block");
-		$("#maskBox .enterprise").css("display", "block");
 		$(".enterprise .enterprise2").css("display", "block");
 	})
 	$(".enterprise2 .photoBtn1").bind("click",function(){
 		$("#maskBox").css("display", "none");
-		$("#maskBox .enterprise").css("display", "none");
 		$(".enterprise .enterprise2").css("display", "none");
 	})
 	/*顶部的切换*/
@@ -2078,10 +2071,10 @@ $(".uploadMask3 .maskBtn2").bind("click", function() {
 		var imgList2 = {};
 		imgList2["companyno"] = companyNo2;
 		imgList2["ImageBinaryCodes"] = img2[i].src;
-		/*console.log(companyNo2);
-		console.log(img2[i].src);*/
+		console.log(companyNo2);
+		console.log(img2[i].src);
 		pushList2.push(imgList2);
-		/*console.log(pushList2);*/
+		console.log(pushList2);
 
 	}
 	process = setInterval(invoiceUploadProgress, 1000);

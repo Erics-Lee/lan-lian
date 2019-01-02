@@ -77,7 +77,7 @@ public class CompanyLetterheadServiceImpl implements  ICompanyLetterheadService{
         	LOG.info("result:"+Access_token2);
         	String returnCode2 = (String) json2.get("ReturnCode");
         	if(!StringUtil.isEmpty(returnCode2) && (returnCode2.equals("000000") || returnCode2.equals("0000"))) {
-        		String resultInfo = (String) json2.get("ReturnJson");
+        		String resultInfo = (String) json.get("ReturnJson");
             	List<CompanyInfo> list = JSON.parseArray(resultInfo, CompanyInfo.class);
             	if(list != null && list.size() > 0){
             		info = list.get(0);
