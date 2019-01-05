@@ -255,30 +255,6 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public String invoicePhoto(String sessionKey, String taskid, String invoiceid) {
-        Map map = new HashMap();
-        map.put("taskid", taskid);
-        map.put("invoiceid", invoiceid);
-        map.put("IsBase64Code", "0");
-
-        String Access_token = HttpClinetUtil.doGet("https://api.taxchain.one/eTaxAPIs100/InvoiceQuery",map,sessionKey);
-        Map result = new HashMap();
-        JSONObject json = JSONObject.parseObject(Access_token);
-        String ReturnCode = (String) json.get("ReturnCode");
-        if (!ReturnCode.equals("0000")) {
-            return JsonUtil.error(json.get("ReturnMessage"));
-        } else {
-            String ReturnStr = (String) json.get("ReturnJson");
-            JSONObject ReturnJson = JSONObject.parseObject(ReturnStr);
-            //发票图片
-            String ImageBinaryCodes = (String) ReturnJson.get("ImageBinaryCodes");
-            result.put("ImageBinaryCodes", ImageBinaryCodes);
-
-            return JsonUtil.success(result);
-        }
-    }
-
-    @Override
     public String getInvoiceTaskStatus() {
         Map result = new HashMap();
         String Access_token = HttpClinetUtil.doGet("https://api.taxchain.one/eTaxAPIs100/GetInvoiceStatus",result,"");

@@ -174,11 +174,7 @@ public class CompanyLetterheadServiceImpl implements  ICompanyLetterheadService{
 		JSONObject json2 = JSONObject.parseObject(ReturnTokenUtil.getReturnTokenUtilObject(Access_token2, CompanyInfo.class));
 		JSONObject json = new JSONObject();
 		json.putAll(JSONObject.parseObject(json1.get("data").toString()));
-		try {
-			json.putAll(JSONObject.parseObject(json2.get("data").toString()));			
-		} catch (Exception e) {
-			
-		}
+		json.putAll(JSONObject.parseObject(json2.get("data").toString()));
 		System.out.println(json);
 		return JsonUtil.success(json);
 	}

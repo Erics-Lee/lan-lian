@@ -36,14 +36,11 @@ public class CompanyLetterheadController {
      */
 	@RequestMapping(value = "/addCompanyLetterhead", method = RequestMethod.POST)
     @ResponseBody
-    public String addCompanyLetterhead(HttpServletRequest request, CompanyInfo info){
+    public String addCompanyLetterhead(HttpServletRequest request, CompanyInfo info, String rawcompanyname){
+		System.out.println(rawcompanyname);
 		String sessionKey = HttpClinetUtil.getSessionKey(request);
 		if(StringUtil.isEmpty(sessionKey)){
 			return JsonUtil.error("未登录系统");
-		}
-		LOG.info("CompanyInfo: "+info);
-		if(!StringUtil.isEmpty(info.getImageBase64())){
-			LOG.info("2222222222");
 		}
         if (StringUtil.isEmpty(info.getRawcompanyname()) || StringUtil.isEmpty(info.getRawaddress())) {
 			LOG.info("公司名称或公司地址为空 !!!");
@@ -61,10 +58,12 @@ public class CompanyLetterheadController {
         	LOG.info("邮箱: "+info.getEmail()+",不能为空或格式不正确 !!!");
         	return JsonUtil.error("邮箱: "+info.getEmail()+",不能为空或格式不正确 !!!");
         }
+        LOG.info("CompanyInfo: "+info);
         String companyNo = service.queryCompany(info.getRawcompanyname(),sessionKey);
         if(!companyNo.equals("0000")){
         	return JsonUtil.error(companyNo,"600");
         }else{
+        	System.out.println(info);
         	String result = service.addCompanyLetterhead(info, sessionKey);        	
         	return result;
         }

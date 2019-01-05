@@ -325,7 +325,8 @@ $(document).ready(function() {
 	$("#uploadFooter").bind("click", function() {
 		if($(this).hasClass("active6")) {
 			console.log(2552);
-			
+			$("#maskBox").css("display", "block");
+			$(".uploadMask .uploadMask1").css("display", "block");
 			var companyNo = selectCompanyLetterhead().data.companyno;
 			var pushList = [];
 
@@ -698,6 +699,9 @@ $(document).ready(function() {
 			
 		})
 		/*不可退发票的点击查看*/
+		
+		
+		
 		$(".inviceListBox .inviceList3").bind("click", function() {
 			
 			$(".inviceListBox").css("display", "none");
@@ -988,8 +992,20 @@ $(document).ready(function() {
 			var email = $("#componyEmail1").html();
 			var uniformnumber=document.getElementById("creditCode").value;
 			var imageBase64=document.getElementById("imglist").src;
-		addCompony=addComponyLetterhead(rawcompanyname, rawaddress, compayname, englishaddress, contact, email,imageBase64,uniformnumber);
-			
+			var addCompony=addComponyLetterhead(rawcompanyname, rawaddress, compayname, englishaddress, contact, email,imageBase64,uniformnumber);
+			console.log(addCompony);
+			if(addCompony.code==200){
+				$("#loading").css("display","none");
+				$("#maskBox").css("display", "block");
+				$("#maskBox .enterprise").css("display", "block");
+				$(".enterprise .enterprise1").css("display", "none");
+				$("#maskBox .phoneBox5").css("display", "none");
+				$(".enterprise .enterprise3").css("display", "block");
+			}else{
+				$("#loading").css("display","none");
+				alert(addCompony.msg);
+				window.location.reload();
+			}
 		} else {
 			alert("信息未填写完整不能提交认证信息")
 		}
@@ -1171,7 +1187,7 @@ var orderList = invoiceOrderQuery();
 console.log(orderList);
 var orderListBox = document.getElementById("orderListBox");
 if(orderList.code == 200) {
-	/*$("#loading").css("display", "none");*/
+	$("#loading").css("display", "none");
 	var secondOrder = orderList.data;
 	var country;
 	var currencysymbol;

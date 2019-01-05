@@ -810,7 +810,7 @@
 						account: email,
 						verificationCode: verificationCode
 					};
-					getDataAJAX1(url, "GET", data, true, function(resultData) {
+					getDataAJAX(url, "GET", data, false, function(resultData) {
 						var code = JSON.parse(resultData).code;
 						if(code == '200') {
 							console.log(1);
@@ -844,7 +844,7 @@
 					contact: contact, //联系人
 					email: email
 				};
-				getDataAJAX1(url, "POST", data, true, function(resultData) {
+				getDataAJAX(url, "POST", data, false, function(resultData) {
 					var code = JSON.parse(resultData).code;
 					if(code == '600') { //该企业已被注册
 						$("#loading").css("display","none");
@@ -912,36 +912,6 @@
 				$("#maskBox").css("display","none");
 				$("#maskBox .phoneBox5").css("display","none");
 			})*/
-			
-			/*$(".componyInfo0")[0].oninput = function() {
-				var re = /^[\u4e00-\u9fa5]{4,99}$/i;
-				var name = $(".componyInfo0")[0].value;
-				if (re.test(name)) {
-					$(".addComponyList").css("display", "block");
-					var data = selectCompanyInfoByName(name);
-					console.log(data);
-					var addComponyList = document.getElementById("addComponyList");
-					addComponyList.innerHTML="";
-					if(data.code == 200) {
-						var secondData = data.data;
-						for(var i = 0; i < secondData.length; i++) {
-							var addComponyListBox = document.createElement("li");
-							addComponyListBox.className = "addList";
-							addComponyListBox.innerHTML = secondData[i].name;
-							addComponyList.appendChild(addComponyListBox);
-						}
-
-					}
-					var addList = document.getElementsByClassName("addList");
-					for(var i = 0; i < addList.length; i++) {
-						addList[i].onclick = function() {
-							var componyName=$(this).html();
-							$(".componyInfo0").val(componyName)
-							$(".addComponyList").css("display", "none");
-						}
-					}
-				}
-			}*/
 		</script>
 	</body>
 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>蓝联退税</title>
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/jquery.min.js" ></script>
+		<script type="text/javascript" src="js/login.js" ></script>
+		<script type="text/javascript" src="js/xiaoli.js" ></script>
+	</head>
+	<body>
+		<div id="wrap13">
+			<div class="content" id="invoiceDetailBox2">
+				<div class="invoiceInformationOneTop">
+					<img src="img/16.jpg"/>
+				</div>
+			</div>
+		</div>
+		<div id="taskid" th:text="${taskid}" style="display: none"></div>
+		<div id="invoiceid" th:text="${invoiceid}" style="display: none"></div>
+		<script>
+			$(document).ready(function(){
+				var taskid = $("#taskid").html();//getPar("taskid");
+				var invoiceid= $("#invoiceid").html();//getPar("invoiceid");
+				
+				var invoiceInformation=invoicePhoto(taskid,invoiceid);
+				console.log(invoiceInformation);
+					var invoiceDetailBox=document.getElementById('invoiceDetailBox2');
+					invoiceDetailBox.innerHTML=
+					'<div class="invoiceInformationOneTop">\
+						<img src="'+invoiceInformation.data.ImageBinaryCodes+'"/>\
+					</div>'
+					
+					
+				
+			})
+		</script>
+	</body>
+</html>

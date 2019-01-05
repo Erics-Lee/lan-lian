@@ -173,29 +173,34 @@
 	            $(".header1").attr('src',img); 
 				var data=accountExtendProfileQuery();
 				console.log(data);
-				var accountData=data.data;
 				if(data.code==200){
+					var secondData=data.data;
 					var userPhone=document.getElementById("userPhone2");
 					userPhone.innerHTML=
 					'<p class="content1p1">联系方式</p>\
-					<p class="content1p2">'+accountData.mobilephonenumber+'</p>\
+					<p class="content1p2">'+secondData.mobilephonenumber+'</p>\
 					<img class="content1Img2" src="img/rightArr.png" />'
 					
 					var userEmail=document.getElementById("userEmail2");
 					userEmail.innerHTML=
 					'<p class="content1p1">联系邮箱</p>\
-					<p class="content1p2">'+accountData.secndemailaddress+'</p>\
+					<p class="content1p2">'+secondData.secndemailaddress+'</p>\
 					<img class="content1Img2" src="img/rightArr.png" />'
 					
+					var compony2=document.getElementById("compony2");
+					compony2.innerHTML=
+					'<p class="content1p1">退税企业</p>\
+					<p class="content1p2">'+secondData.rawcompanyname+'</p>\
+					<img class="content1Img2" src="img/rightArr.png" />'
 					
 					var maskInput=document.getElementById("maskInput3");
-					maskInput.innerHTML='<input type="text" class="phoneValue" id="phoneValue" value="'+accountData.mobilephonenumber+'"/>'
+					maskInput.innerHTML='<input type="text" class="phoneValue" id="phoneValue" value="'+secondData.mobilephonenumber+'"/>'
 					
 					var maskInput2=document.getElementById("maskInput4");
-					maskInput2.innerHTML='<input type="text" id="emailValue" value="'+accountData.secndemailaddress+'"/>'
+					maskInput2.innerHTML='<input type="text" id="emailValue" value="'+secondData.secndemailaddress+'"/>'
 					
 					var maskInput3=document.getElementById("maskInput5");
-					maskInput3.innerHTML='<input type="text" value="'+accountData.rawcompanyname+'" readonly="readonly"/>'
+					maskInput3.innerHTML='<input type="text" value="'+secondData.rawcompanyname+'" readonly="readonly"/>'
 				}  
 				
 				/*修改手机号确认*/
@@ -266,7 +271,25 @@
 						$("#maskBox .emailBox").css("display","none");
 					})
 				
-					
+					/*退出企业*/
+				
+					$(".contentBox .compony").bind("click",function(){
+						if(sessionKey){
+							$("#maskBox").css("display","block");
+							$("#maskBox .componyBox").css("display","block");
+						}else{
+							alert("您的信息尚未填写完整，请至'退税'主页进行信息填写")
+						}
+						
+					})
+					$(".componyBox .maskBtn1").bind("click",function(){
+						var companyNo = selectCompanyLetterhead().data.companyno;
+						assignRelatedCompany2(companyNo);
+					})
+					$(".componyBox .maskBtn2").bind("click",function(){
+						$("#maskBox").css("display","none");
+						$("#maskBox .componyBox").css("display","none");
+					})
 				
 				
 				$("#footer .footer1").bind("click", function() {
@@ -279,64 +302,22 @@
 				
 				var compony = selectCompanyLetterhead();
 				console.log(compony);
+				if(compony.code==400){
+					$("#footer .footer3").bind("click", function() {
+						window.location.href = localhost + '/mine2';//"mine2.html";
+					})
+				}
 				var secondData = compony.data;
-				var rawcompanyname;
-				if(accountData.rawcompanyname){
-					rawcompanyname=accountData.rawcompanyname;
-				}else{
-					rawcompanyname="";
+				if(secondData.status == -1 || secondData.status == 1 || secondData.status == 3||secondData.status == 0) {
+					$("#footer .footer3").bind("click", function() {
+						window.location.href = localhost + '/mine2';//"mine2.html";
+					})
 				}
-				$("#footer .footer3").bind("click", function() {
-					if(compony.code==400){
-						window.location.href = localhost + '/mine2';//"mine2.html";
-					}
-					if(secondData.status == -1 || secondData.status == 1 || secondData.status == 3||secondData.status == 0) {
-						window.location.href = localhost + '/mine2';//"mine2.html";
-					}
-					if(secondData.status == 2) {
+				if(secondData.status == 2) {
+					$("#footer .footer3").bind("click", function() {
 						window.location.href = localhost + '/mine'; //"mine.html";
-					}
-				})
-				
-				
-				if(secondData.status == -1 || secondData.status == 1||secondData.status == 0) {
-					var compony2=document.getElementById("compony2");
-					compony2.innerHTML=
-					'<p class="content1p1">退税企业</p>\
-					<p class="content1p2">'+rawcompanyname+'</p>'
-				}else if(secondData.status == 3){
-					var compony2=document.getElementById("compony2");
-					compony2.innerHTML=
-					'<p class="content1p1">退税企业</p>\
-					<p class="content1p2">'+rawcompanyname+'</p>\
-					<img class="content1Img2" src="img/rightArr.png" />'
+					})
 				}
-				
-				/*退出企业*/
-				
-				$(".contentBox .compony").bind("click",function(){
-					if(sessionKey){
-						if(secondData.status == -1 || secondData.status == 1||secondData.status == 0) {
-							return;
-						}else{
-							$("#maskBox").css("display","block");
-							$("#maskBox .componyBox").css("display","block");
-						}
-						
-					}else{
-						alert("您的信息尚未填写完整，请至'退税'主页进行信息填写")
-					}
-					
-				})
-				$(".componyBox .maskBtn1").bind("click",function(){
-					var companyNo = selectCompanyLetterhead().data.companyno;
-					assignRelatedCompany2(companyNo);
-				})
-				$(".componyBox .maskBtn2").bind("click",function(){
-					$("#maskBox").css("display","none");
-					$("#maskBox .componyBox").css("display","none");
-				})
-				
 				
 				$(".helpBox .helpLeft").bind("click",function(){
 					window.location.href = localhost + '/helpCenter';//"helpCenter.html";

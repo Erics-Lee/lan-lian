@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>蓝联退税</title>
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div id="openId" style="display:none;" th:text="${session.openId}"></div>
+		<div id="sessionKey" style="display:none;" th:text="${session.sessionKey}"></div>
+		<script type="text/javascript" src="js/login.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				console.log($("#openId").html());
+			});
+		</script>
+		<div id="headimgurlText" style="display:none;" th:text="${session.headImgUrl}"></div>
+		<div id="wrap12">
+			<div class="header">
+				下方列表查看你所上传的发票
+			</div>
+			<div class="content">
+				<ul id="invoiceList">
+					<!--<li>
+						<p>2158445441</p>
+						<img src="img/rightArr.png" />
+					</li>
+					<li>
+						<p>2158445441</p>
+						<img src="img/rightArr.png" />
+					</li>-->
+				</ul>
+				<div style="width: 100%;height: 60px;"></div>
+			</div>
+			<div class="footer" id="footer">
+				<div class="footer1">
+					<img src="img/index.png" />
+					<p>主页</p>
+				</div>
+				<div class="footer2">
+					<img src="img/tax.png" />
+					<p>退税</p>
+				</div>
+				<div class="footer3">
+					<img src="img/mine2.png" />
+					<p class="active9">个人中心</p>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/xiaoli.js"></script>
+		<script type="text/javascript" src="js/dali.js"></script>
+		<script>
+			$(document).ready(function() {
+				InvoicesTasksQueryA();
+				var sessionKey = $("#sessionKey").html();
+
+				$("#footer .footer1").bind("click", function() {
+					//window.location.href="index.html"
+					window.location.href = localhost + '/index'; //"index.html"
+				})
+				$("#footer .footer2").bind("click", function() {
+					window.location.href = localhost + '/tax'; //"tax.html"
+				})
+
+				var compony = selectCompanyLetterhead();
+				console.log(compony);
+				if(compony.code == 400) {
+					$("#footer .footer3").bind("click", function() {
+						window.location.href = localhost + '/mine2'; //"mine2.html";
+					})
+				}
+				var secondData = compony.data;
+				if(secondData.status == -1 || secondData.status == 1 || secondData.status == 3 || secondData.status == 0) {
+					$("#footer .footer3").bind("click", function() {
+						window.location.href = localhost + '/mine2'; //"mine2.html";
+					})
+				}
+				if(secondData.status == 2) {
+					$("#footer .footer3").bind("click", function() {
+						window.location.href = localhost + '/mine'; //"mine.html";
+					})
+				}
+
+			})
+
+			
+		</script>
+	</body>
+
+</html>

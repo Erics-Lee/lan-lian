@@ -135,34 +135,6 @@ public class InvoiceController {
     }
 
     /**
-     * 发票图片
-     * @param request
-     * @param response
-     * @param taskid 发票作业id
-     * @param invoiceid 发票id
-     * @return
-     * @throws ParseException
-     */
-    @RequestMapping(value = "invoicePhoto")
-    @ResponseBody
-    public String invoicePhoto(HttpServletRequest request, HttpServletResponse response, String taskid, String invoiceid) throws ParseException {
-        try {
-            if (taskid == null && taskid.equals("")) {
-                logger.info("发票作业ID不可为空");
-            }
-            if (invoiceid == null && invoiceid.equals("")) {
-                logger.info("发票ID不可为空");
-            }
-            String sessionKey = HttpClinetUtil.getSessionKey(request);
-            String result = invoiceService.invoicePhoto(sessionKey,taskid,invoiceid);
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return JsonUtil.error("发票图片查询失败");
-        }
-    }
-
-    /**
      * 查询发票状态
      * @param request
      * @param response

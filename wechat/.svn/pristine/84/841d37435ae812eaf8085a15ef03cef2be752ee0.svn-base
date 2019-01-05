@@ -168,7 +168,6 @@ function InvoicesTasksQueryB(status,country) {
 				}
 
 				$("#invoiceInfor33 li").bind("click", function() {
-					$("#loading").css("display", "block");
 					var taskid = $(this).find('[name="taskid"]').val();
 					var invoiceid = $(this).find('[name="invoiceid"]').val();
 					window.location.href = localhost + "/invoiceDetail?taskid=" + taskid + '&invoiceid=' + invoiceid;
@@ -201,7 +200,6 @@ function InvoicesTasksQueryB(status,country) {
 				}
 
 				$("#invoiceInfor11 li").bind("click", function() {
-					$("#loading").css("display", "block");
 					var taskid = $(this).find('[name="taskid"]').val();
 					var invoiceid = $(this).find('[name="invoiceid"]').val();
 					//"invoiceDetail.html?taskid=" + taskid + '&invoiceid=' + invoiceid;
@@ -214,6 +212,7 @@ function InvoicesTasksQueryB(status,country) {
 		/*已生成的发票*/
 		var invoiceInfor2 = invoiceInfor.data.InvoicesTasksQuery;
 		var yearLimitAmt = parseFloat(invoiceInfor.data.YearLimitAmt);
+		console.log(yearLimitAmt);
 		var invoiceInfor2Top = document.getElementById("invoiceInfor2Top");
 		var invoiceInformation = document.getElementById("invoiceInformation");
 		invoiceInformation.innerHTML = "";
@@ -321,7 +320,6 @@ function InvoicesTasksQueryB(status,country) {
 				
 			}
 			$(".invoiceInformation1 .invoiceInformation1p2").bind("click", function() {
-				$("#loading").css("display", "block");
 				var taskid = $(this).find('[name="taskId"]').val();
 				var invoiceid = $(this).find('[name="InvoiceIDs"]').val();
 				//window.location.href = "invoiceDetail.html?taskid=" + taskid + '&invoiceid=' + invoiceid;
@@ -395,48 +393,6 @@ function InvoicesTasksQueryB(status,country) {
     });
    
 }
-/*员工查看发票列表*/
-function InvoicesTasksQueryA() {
-	var invoiceInfor = "";
-	var data = {};
-	var url = localhost + "/invoice/InvoicesTasksQueryA";
-	getDataAJAX1(url, "GET", data, true, function(resultData) {
-		invoiceInfor2 = JSON.parse(resultData);
-		console.log(invoiceInfor2);
-		var invoiceList=document.getElementById("invoiceList");
-		invoiceList.innerHTML="";
-		if(invoiceInfor2.code == 200) {
-			if(invoiceInfor2.data == "数据为空！") {
-				alert("暂无数据");
-			} else {
-				var secondData = invoiceInfor2.data.InvoicesTasksQuery;
-				for(var i = 0; i < secondData.length; i++) {
-					var thirdData = secondData[i].invoices;
-					for(var j = 0; j < thirdData.length; j++) {
-						var invoiceInforList = document.createElement("li");
-						invoiceInforList.innerHTML =
-							'<p>' + thirdData[j].id + '</p>\
-							<img src="img/rightArr2.png" />\
-							<input type="hidden" name="taskid" value="' + secondData[i].id + '"/>\
-							<input type="hidden" name="invoiceid" value="' + thirdData[j].id + '"/>'
-
-						invoiceList.appendChild(invoiceInforList);
-					}
-				}
-
-				$("#invoiceList li").bind("click", function() {
-					var taskid = $(this).find('[name="taskid"]').val();
-					var invoiceid = $(this).find('[name="invoiceid"]').val();
-					window.location.href = localhost + "/invoiceDetail2?taskid=" + taskid + '&invoiceid=' + invoiceid;
-
-				})
-			}
-
-		} 
-			
-	})
-}
-
 
 //发票详情
 function invoiceQuery(taskid,invoiceid) {
@@ -446,19 +402,6 @@ function invoiceQuery(taskid,invoiceid) {
         invoiceid:invoiceid
     };
     var url = localhost+"/invoice/invoiceQuery";
-    getDataAJAX(url, "GET", data, false, function(resultData) {
-        result = resultData;
-    });
-    return JSON.parse(result);
-}
-/*发票详情2*/
-function invoicePhoto(taskid,invoiceid) {
-    var result = "";
-    var data = {
-        taskid:taskid,
-        invoiceid:invoiceid
-    };
-    var url = localhost+"/invoice/invoicePhoto";
     getDataAJAX(url, "GET", data, false, function(resultData) {
         result = resultData;
     });

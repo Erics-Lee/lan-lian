@@ -451,19 +451,6 @@ function invoiceQuery(taskid,invoiceid) {
     });
     return JSON.parse(result);
 }
-/*发票详情2*/
-function invoicePhoto(taskid,invoiceid) {
-    var result = "";
-    var data = {
-        taskid:taskid,
-        invoiceid:invoiceid
-    };
-    var url = localhost+"/invoice/invoicePhoto";
-    getDataAJAX(url, "GET", data, false, function(resultData) {
-        result = resultData;
-    });
-    return JSON.parse(result);
-}
 //生成订单
 function invoiceOrder(InvoiceTasks) {
     var result = "";

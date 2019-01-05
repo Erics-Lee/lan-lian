@@ -172,22 +172,6 @@ function bankAccountDefault() {
 	return JSON.parse(result);
 }
 
-//启信宝接口获取公司信息
-//name:公司名称关键字
-function selectCompanyInfoByName(name) {
-	var length = (name.toString()).length;
-	if(length >= 4){
-	    var result = "";
-	    var data = {name: name};
-	    var url = localhost+"/company/selectCompanyInfoByName";
-	    getDataAJAX(url, "GET", data, false, function(resultData) {
-		   result = resultData;
-	    });
-	    return JSON.parse(result);			
-	}else{
-		return '';
-	}
-}
 
 //查询银行账户下拉列表
 function bankList() {
@@ -234,7 +218,7 @@ function uploadInvoiceImageFiles(base64Codes) {
 	var result = "";
 	var data = {base64Codes: JSON.stringify(base64Codes)};
 	var url = localhost+"/invoice/uploadInvoiceImageFiles";
-	getDataAJAX2(url, "POST", data, true, function(resultData) {
+	getDataAJAX(url, "POST", data, false, function(resultData) {
 	/*	result = resultData;*/
 		//{"data":[{"companyno":"3127","errMessage":"储存发票错误、取消上传","imageBinaryCodes":"data:image/png;base64,"}],"code":"400"}
 		//{"data":"作业成功" ,"code":"200"}
@@ -301,7 +285,7 @@ function registerEMail(sessionKey, email) {
 	var data = {
 		account: email
 	};
-	getDataAJAX1(url, "GET", data, true, function(resultData) {
+	getDataAJAX(url, "GET", data, false, function(resultData) {
 		var code = JSON.parse(resultData).code;
 		if(code == '0039') {
 			$("#loading").css("display", "none");
@@ -314,9 +298,6 @@ function registerEMail(sessionKey, email) {
 		} else { //未知错误
 			$("#loading").css("display", "none");
 			alert(JSON.parse(resultData).msg);
-			clearTimeout(settime);
-			obj.attr('disabled', false);
-			$("#btn").val("点击发送")
 		}
 	});
 }
@@ -327,7 +308,7 @@ function sendVerificateCode(email) {
 	var data = {
 		account: email
 	};
-	getDataAJAX1(url, "GET", data, true, function(resultData) {
+	getDataAJAX(url, "GET", data, false, function(resultData) {
 		var code = JSON.parse(resultData).code;
 		if(code == '200') {
 			console.log(9);
@@ -342,7 +323,7 @@ function sendVerificateCode(email) {
 
 /*添加企业的认证图片和信息*/
 function addComponyLetterhead(rawcompanyname, rawaddress, compayname, englishaddress, contact, email,imageBase64,uniformnumber){
-	var addCompony="";
+	var result="";
 	var data={
 		rawcompanyname:rawcompanyname,
 		rawaddress:rawaddress,
@@ -354,29 +335,10 @@ function addComponyLetterhead(rawcompanyname, rawaddress, compayname, englishadd
 		uniformnumber:uniformnumber
 	};
 	var url= localhost + "/company/addCompanyLetterhead";
-	getDataAJAX1(url,"POST",data,true,function(resultData){
-		 addCompony = JSON.parse(resultData);
-		 console.log(addCompony);
-		if(addCompony.code==200){
-			$("#loading").css("display","none");
-			$("#maskBox").css("display", "block");
-			$("#maskBox .enterprise").css("display", "block");
-			$(".enterprise .enterprise1").css("display", "none");
-			$("#maskBox .phoneBox5").css("display", "none");
-			$(".enterprise .enterprise3").css("display", "block");
-			$(".enterprise3 .photoBtn1").bind("click",function(){
-				$("#maskBox").css("display", "none");
-				$("#maskBox .enterprise").css("display", "none");
-				$(".enterprise .enterprise3").css("display", "none");
-				window.location.reload();
-			})
-		}else{
-			$("#loading").css("display","none");
-			alert(addCompony.msg);
-			window.location.reload();
-		}
+	getDataAJAX(url,"POST",data,false,function(resultData){
+		result=resultData;
 	});
-	/*return JSON.parse(result);*/
+	return JSON.parse(result);
 }
 
 //加入该公司
@@ -422,7 +384,6 @@ function assignRelatedCompany2(companyNo) {
 		}
 	});
 }
-
 function settime(obj) { //发送验证码倒计时
 	if(countdown == 0) {
 
@@ -441,28 +402,3 @@ function settime(obj) { //发送验证码倒计时
 		settime(obj)
 	}, 1000)
 }
-
-/*ajax用于loading的2*/
-function getDataAJAX2(url, type, data, async, callback) {
-	var obj = data;
-	$.ajax({
-		type : type,
-		url : url + "?_=" + Date.parse(new Date()) / 1000,
-		async : async,
-		data : obj,
-		datatype : "text",
-		beforeSend:function(){
-			$("#maskBox").css("display", "block");
-			$(".uploadMask .uploadMask1").css("display", "block");
-		},
-		success : function(res) {
-			callback(res);
-		},
-		complete:function(){
-			$(".uploadMask .uploadMask1").css("display", "none");
-		},
-		error : function(e) {
-		}
-	});
-};
-

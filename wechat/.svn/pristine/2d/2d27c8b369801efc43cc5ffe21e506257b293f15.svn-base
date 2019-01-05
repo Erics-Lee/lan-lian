@@ -843,13 +843,13 @@ body {
 }
 #wrap3 .content .invoiceBox2 p{
 	font-size: 15px;
-	width: 75%;
+	width: 60%;
 	height: 60px;
 	line-height: 60px;
 	float: left;
 }
 #wrap3 .content .invoiceBox2 input{
-	width: 80px;
+	width: 100px;
 	height: 34px;
 	background-color: #12AAEB;
 	color: #fff;
