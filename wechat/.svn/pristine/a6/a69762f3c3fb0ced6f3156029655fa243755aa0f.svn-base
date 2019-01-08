@@ -107,7 +107,7 @@
 									</li>
 								</ul>
 								<div class="shouquanBox">
-									<div class="active2" id="shouquan">
+									<div class="shouquan" id="shouquan">
 										<!--<img src="img/gou.png" />--></div>
 									<p>请蓝联专家翻译英文</p>
 								</div>
@@ -426,7 +426,7 @@
 									<div class="sk-circle11 sk-circle"></div>
 									<div class="sk-circle12 sk-circle"></div>
 								</div>
-								<div class="waitUpload" id="waitUpload">图片压缩中，请勿关闭....</div>
+								<div class="waitUpload">上传中...</div>
 							</li>
 							<li class="smallBtn" id="uploadSpeed">正在上传，请稍候..</li>
 						</ul>
@@ -782,32 +782,26 @@
 				$(".componyInfo0")[0].oninput = function() {
 					var re = /^[\u4e00-\u9fa5]{4,99}$/i;
 					var name = $(".componyInfo0")[0].value;
-					console.log(name);
-					var length = (name.toString()).length;
-					console.log(length);
+					console.log("name");
 					if (re.test(name)) {
-						if(length>=4){
-							$(".addComponyList").css("display", "block");
-							var data = selectCompanyInfoByName(name);
-							console.log(data);
-							var addComponyList = document.getElementById("addComponyList");
-							addComponyList.innerHTML="";
-							if(data.code == 200) {
-								var secondData = data.data;
-								for(var i = 0; i < secondData.length; i++) {
-									var addComponyListBox = document.createElement("li");
-									addComponyListBox.className = "addList";
-									addComponyListBox.innerHTML = secondData[i].name;
-									addComponyList.appendChild(addComponyListBox);
-								}
-		
-							}else{
-								alert("查询无结果,请输入关键字搜索");
-								return;
+						$(".addComponyList").css("display", "block");
+						var data = selectCompanyInfoByName(name);
+						console.log(data);
+						var addComponyList = document.getElementById("addComponyList");
+						addComponyList.innerHTML="";
+						if(data.code == 200) {
+							var secondData = data.data;
+							for(var i = 0; i < secondData.length; i++) {
+								var addComponyListBox = document.createElement("li");
+								addComponyListBox.className = "addList";
+								addComponyListBox.innerHTML = secondData[i].name;
+								addComponyList.appendChild(addComponyListBox);
 							}
+	
+						}else{
+							alert("查询无结果");
 							return;
 						}
-						
 						var addList = document.getElementsByClassName("addList");
 						for(var i = 0; i < addList.length; i++) {
 							addList[i].onclick = function() {

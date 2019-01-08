@@ -314,10 +314,10 @@ $(document).ready(function() {
 				uploadFooter.className = "active6";
 
 			}
-		}
-		if(Img.length >= 9) {
-			$("#uploadPhotoList .uploadPhoto").css("display", "none");
-			alert("单次图片最大上传量为9张")
+			if(Img.length >= 9) {
+				$("#uploadPhotoList .uploadPhoto").css("display", "none");
+				alert("单次图片最大上传量为9张")
+			}
 		}
 		var process = 0;
 
@@ -484,7 +484,7 @@ $(document).ready(function() {
 		var currencysymbol;
 		var tax;
 		for(var i = 0; i < secondData.length; i++) {
-	
+
 			if(!secondData[i].country) {
 				country = "";
 				srcAdress = "";
@@ -601,10 +601,8 @@ $(document).ready(function() {
 				currencysymbol = "£";
 				tax = 16;
 			}
-			var invoiceThirdData=secondData[i].invoices;
-			for(var j=0;j<invoiceThirdData.length;j++){
-				
-			}
+
+			
 			if(secondData[i].status == 1) {
 				var ableInviceBottom1 = 0;
 				var tax2 = secondData[i].allInvoiceTaxPrice;
@@ -640,9 +638,12 @@ $(document).ready(function() {
 								<div style="width:' + percenter2 + '"></div>\
 								<p>起退税金为：' + secondData[i].yearLimitAmt + '</p>\
 							</div>\
-							<div class="' + ableInvoice + '">申请退税</div>\
+							<div class="' + ableInvoice + '">\
+							<input type="hidden" name="countryId" value="' + secondData[i].country + '"/>\
+							<input type="hidden" name="statusId" value="' + secondData[i].status + '"/>\
+							申请退税\
+							</div>\
 						</div>\
-						<div id="taxBox" class="taxBox"></div>\
 					</li>'
 				invoiceListBox.prepend(inviceList2);
 
@@ -668,19 +669,6 @@ $(document).ready(function() {
 					<img src="img/rightArr2.png" />'
 				invoiceListBox.appendChild(inviceList3);
 
-			}
-			
-		}
-		var taxBox=document.getElementById("taxBox");
-		taxBox.innerHTML="";
-		for(var i = 0; i < secondData.length; i++){
-			var invoiceThirdData=secondData[i].invoices;
-			for(var j=0;j<invoiceThirdData.length;j++){
-				var taskIdBox=document.createElement("span");
-				taskIdBox.innerHTML=
-					'<input type="hidden" class="taskId" name="taskid" value="' + invoiceThirdData[j].taskid + '" />\
-					<input type="hidden" class="InvoiceIDs" name="invoiceid" value="' + invoiceThirdData[j].invoiceid + '"/>'
-				taxBox.appendChild(taskIdBox);
 			}
 		}
 		/*未审核的点击查看*/
@@ -728,7 +716,7 @@ $(document).ready(function() {
 		})
 		$(".ableInviceBottom .active14").bind("click", function() {
 			var InvoiceTasks = [];
-			var invoiceInformation1Div1 = $(".active14");
+			var invoiceInformation1Div1 = $(".invoiceInformation1");
 			for(var i = 0; i < invoiceInformation1Div1.length; i++) {
 				var orderListVal = {};
 				var InvoiceIDs = [];
@@ -830,10 +818,9 @@ $(document).ready(function() {
 		$(".insetComponyInfor1 .taxInformation").css("display", "block");
 		$(".taxStepList1 .taxStepBottom").css("display", "block");
 		$(".taxStepList1 .taxStepBtn").css("color", "#12AAEB");
-		$(".taxStepList2 .taxStepBtn").attr("disabled",true);
-		$(".taxStepList3 .taxStepBtn").attr("disabled",true);
-		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
-		
+		$(".taxStepList2 .taxStepBtn").attr("disabled", true);
+		$(".taxStepList3 .taxStepBtn").attr("disabled", true);
+		$(".taxStepList4 .taxStepBtn").attr("disabled", true);
 		
 	}
 	if(componyData.status == 0) {
@@ -849,8 +836,8 @@ $(document).ready(function() {
 		$(".taxStepList2 .taxStepBottom").css("display", "block");
 		$("#taxStep .taxStepList1").removeClass("active3");
 		$("#taxStep .taxStepList2").addClass("active3");
-		$(".taxStepList3 .taxStepBtn").attr("disabled",true);
-		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
+		$(".taxStepList3 .taxStepBtn").attr("disabled", true);
+		$(".taxStepList4 .taxStepBtn").attr("disabled", true);
 		$(".insetComponyInfor .insetComponyInfor1").css("display", "none");
 		$(".insetComponyInfor .insetComponyInfor2").css("display", "block");
 		if(componyData.uniformnumber=="0"){
@@ -879,8 +866,8 @@ $(document).ready(function() {
 		$(".taxStepList2 .taxStepBottom").css("display", "block");
 		$("#taxStep .taxStepList1").removeClass("active3");
 		$("#taxStep .taxStepList2").addClass("active3");
-		$(".taxStepList3 .taxStepBtn").attr("disabled",true);
-		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
+		$(".taxStepList3 .taxStepBtn").attr("disabled", true);
+		$(".taxStepList4 .taxStepBtn").attr("disabled", true);
 		$(".insetComponyInfor .insetComponyInfor1").css("display", "none");
 		$(".insetComponyInfor .insetComponyInfor2").css("display", "block");
 		
@@ -898,8 +885,8 @@ $(document).ready(function() {
 		$(".taxStepList2 .taxStepBtn").css("color", "#12AAEB");
 		$(".taxStepList2 img").attr("src", "img/21.png");
 		$(".taxStepList2 .taxStepBottom").css("display", "block");
-		$(".taxStepList3 .taxStepBtn").attr("disabled",true);
-		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
+		$(".taxStepList3 .taxStepBtn").attr("disabled", true);
+		$(".taxStepList4 .taxStepBtn").attr("disabled", true);
 		$("#taxStep .taxStepList1").removeClass("active3");
 		$("#taxStep .taxStepList2").addClass("active3");
 		$(".insetComponyInfor .insetComponyInfor1").css("display", "none");
@@ -974,8 +961,8 @@ $(document).ready(function() {
 		$(".taxStepList2 .taxStepBottom").css("display", "block");
 		$("#taxStep .taxStepList1").removeClass("active3");
 		$("#taxStep .taxStepList2").addClass("active3");
-		$(".taxStepList3 .taxStepBtn").attr("disabled",true);
-		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
+		$(".taxStepList3 .taxStepBtn").attr("disabled", true);
+		$(".taxStepList4 .taxStepBtn").attr("disabled", true);
 
 	}
 	/*企业认证*/
@@ -1034,70 +1021,21 @@ $(document).ready(function() {
 	})
 	/*顶部的切换*/
 	$(".taxStepBtn1").bind("click", function() {
-		if(componyData.rawcompanyname) {
-			$(".insetComponyInfor1 .taxInformation2").css("display", "block");
-		}
-	})
+			if(componyData.rawcompanyname) {
+				$(".insetComponyInfor1 .taxInformation2").css("display", "block");
+			}
+		})
 		/*上传发票*/
 	$(".taxStepBtn2").bind("click", function() {
-		$("#uploadPhotoList .smallOne").remove();
-		$("#uploadPhotoList .uploadPhoto").css("display", "block");
-		uploader.refresh();
-		
-	})
-	
-	$(".taxStepList2").bind("click", function() {
-		if(componyData.status == -1){
-			alert("请先注册公司,再上传发票");
-		}
-	})
-	
+			$("#uploadPhotoList .smallOne").remove();
+			$("#uploadPhotoList .uploadPhoto").css("display", "block");
+			uploader.refresh();
+		})
 		/*申请退税*/
 	$(".taxStepBtn3").bind("click", function() {
-		if(componyData.status == 2){
-			if(invoice.code == 200) {
-				$(".insetComponyInfor3 .inviceListBox").css("display", "block");
-				$(".insetComponyInfor3 .invoiceInfor").css("display", "none");
-			}
-		}
-	})
-	
-	$(".taxStepList3").bind("click", function() {
-		if(componyData.status == -1) {
-			alert("请先注册公司,再查看发票");
-		}else if(componyData.status == 0){
-			if(componyData.uniformnumber=="0"){
-				alert("请先认证公司,再查看发票");
-				$("#maskBox").css("display", "block");
-				$("#maskBox .enterprise").css("display", "block");
-				$(".enterprise .enterprise1").css("display", "block");
-			}else{
-				alert("公司认证中,请等待审核...")
-			}
-		}else if(componyData.status == 1){
-			alert("公司认证失败,请重新认证");
-			$("#maskBox").css("display", "block");
-			$("#maskBox .enterprise").css("display", "block");
-			$(".enterprise .enterprise1").css("display", "block");
-		}
-	})
-	$(".taxStepList4").bind("click", function() {
-		if(componyData.status == -1) {
-			alert("请先注册公司");
-		}else if(componyData.status == 0){
-			if(componyData.uniformnumber=="0"){
-				alert("请先认证公司,再查看订单");
-				$("#maskBox").css("display", "block");
-				$("#maskBox .enterprise").css("display", "block");
-				$(".enterprise .enterprise1").css("display", "block");
-			}else{
-				alert("公司认证中,请等待审核...")
-			}
-		}else if(componyData.status == 1){
-			alert("公司认证失败,请重新认证");
-			$("#maskBox").css("display", "block");
-			$("#maskBox .enterprise").css("display", "block");
-			$(".enterprise .enterprise1").css("display", "block");
+		if(invoice.code == 200) {
+			$(".insetComponyInfor3 .inviceListBox").css("display", "block");
+			$(".insetComponyInfor3 .invoiceInfor").css("display", "none");
 		}
 	})
 
