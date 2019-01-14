@@ -199,7 +199,7 @@
 					window.location.href = localhost + '/orderBig';//"orderBig.html"
 				})
 				$(".middleBottom .questionMiddle").bind("click", function() {
-					window.location.href = localhost + '/helpCenter';//"policy.html"
+					window.location.href = localhost + '/policy';//"policy.html"
 				})
 				
 				

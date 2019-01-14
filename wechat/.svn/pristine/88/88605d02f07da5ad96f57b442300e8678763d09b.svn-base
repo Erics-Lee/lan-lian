@@ -636,13 +636,12 @@ $(document).ready(function() {
 						<div class="ableInviceBottom">\
 							<div class="ableInviceBottom1">\
 								<div style="width:' + percenter2 + '"></div>\
-								<p>' + secondData[i].allInvoiceTaxPrice + '/' + secondData[i].yearLimitAmt + '</p>\
+								<p>起退税金为：' + secondData[i].yearLimitAmt + '</p>\
 							</div>\
 							<div class="' + ableInvoice + '">申请退税</div>\
 						</div>\
 					</li>'
-					$("#invoiceListBox").prepend(inviceList2);
-				/*invoiceListBox.prepend(inviceList2);*/
+				invoiceListBox.prepend(inviceList2);
 
 			}
 			if(secondData[i].status == 0) {
@@ -663,8 +662,7 @@ $(document).ready(function() {
 					'<p>不可退发票</p>\
 					<p class="shenHe2">' + secondData[i].length + '张</p>\
 					<input type="hidden" name="statusId" value="' + secondData[i].status + '"/>\
-					<img src="img/rightArr2.png" />\
-					<div style="width: 100%;height: 60px;"></div>'
+					<img src="img/rightArr2.png" />'
 				invoiceListBox.appendChild(inviceList3);
 
 			}
@@ -684,9 +682,7 @@ $(document).ready(function() {
 						<input type="hidden" class="InvoiceIDs" name="invoiceid" value="' + invoiceThirdData[j].invoiceid + '"/>'
 					taxBoxList.appendChild(taxBoxList2);
 				}
-				$("#taxBox").prepend(taxBoxList);
-				/*taxBox.prepend(taxBoxList);*/
-				
+				taxBox.appendChild(taxBoxList);
 			}
 			
 		}
@@ -735,41 +731,25 @@ $(document).ready(function() {
 		})
 		$(".ableInviceBottom .active14").bind("click", function() {
 			var InvoiceTasks = [];
-			var InvoiceTasks3=[];
 			var index=$(".ableInviceBottom .active14").index(this)
-			console.log(index);
-			var taxBox=$("#taxBox .taxBoxList").eq(index).children().children();
-			console.log(index);
-			console.log(taxBox);
-			
+			console.log(index)
+			var taxBox=$(".taxBoxList").eq(index).children();
+			console.log(taxBox.length);
 			for(var i = 0; i < taxBox.length; i++) {
 				var orderListVal = {};
 				var InvoiceIDs = [];
-				if(taxBox[i].getAttribute('class').indexOf('taskId')>-1){
-					console.log(taxBox[i].value);
-					var TaskID = taxBox[i].value;
-				}else if(taxBox[i].getAttribute('class').indexOf('InvoiceIDs')>-1){
-					console.log(taxBox[i].value);
-					InvoiceIDs.push(taxBox[i].value);
-					
-				}
+				var TaskID = $(".taskId")[i].value;
+				InvoiceIDs.push($(".InvoiceIDs")[i].value);
 				console.log(TaskID);
-				orderListVal["TaskID"] = TaskID;
 				console.log(InvoiceIDs);
+				orderListVal["TaskID"] = TaskID;
 				orderListVal["InvoiceIDs"] = InvoiceIDs;
 				console.log(orderListVal);
 				InvoiceTasks.push(orderListVal);
 				
+				
 			}
-			for(var i=0;i<InvoiceTasks.length;i++){
-				var InvoiceTasks2=eval(InvoiceTasks[i]);
-				if(InvoiceTasks2.InvoiceIDs.length!==0){
-					console.log(InvoiceTasks2.InvoiceIDs.length);
-					InvoiceTasks3.push(InvoiceTasks[i]);
-				}
-			}
-			console.log(InvoiceTasks3);
-			invoiceOrder(InvoiceTasks3);
+			invoiceOrder(InvoiceTasks)
 			
 
 		})
@@ -814,22 +794,17 @@ $(document).ready(function() {
 			'<li>\
 				<div>\
 					<img src="img/compony.png" />\
-					<p class="enName" id="cantDo2">' + componyData.compayname + '</p>\
+					<p>English name</p>\
 				</div>\
+				<p class="enName" id="cantDo2">' + componyData.compayname + '</p>\
 			</li>\
 			<li>\
 				<div>\
 					<img src="img/adress.png" />\
-					<p class="enName" id="cantDo3">' + componyData.englishaddress + '</p>\
+					<p>English address</p>\
 				</div>\
+				<p class="enName" id="cantDo3">' + componyData.englishaddress + '</p>\
 			</li>'
-
-			/* str = text.innerHTML,
-            textLeng = 20;
-            if(str.length > textLeng ){
-                  text .innerHTML = str.substring(0,textLeng )+"... ...";
-            } */
-
 
 		var chComponyInfor = document.getElementById("chComponyInfor");
 		chComponyInfor.innerHTML =
@@ -866,9 +841,8 @@ $(document).ready(function() {
 		$(".taxStepList2 .taxStepBtn").attr("disabled",true);
 		$(".taxStepList3 .taxStepBtn").attr("disabled",true);
 		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
-		$(".taxStepList .taxMask2").css("display","block");
-		$(".taxStepList .taxMask3").css("display","block");
-		$(".taxStepList .taxMask4").css("display","block");
+		
+		
 	}
 	if(componyData.status == 0) {
 		$("#footerList .footer3").bind("click", function() {
@@ -887,8 +861,6 @@ $(document).ready(function() {
 		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
 		$(".insetComponyInfor .insetComponyInfor1").css("display", "none");
 		$(".insetComponyInfor .insetComponyInfor2").css("display", "block");
-		$(".taxStepList .taxMask3").css("display","block");
-		$(".taxStepList .taxMask4").css("display","block");
 		if(componyData.uniformnumber=="0"){
 			$(".taxInformation2 .componyRenzheng").css("display","block");
 			$(".taxInformation2 .componyRenzheng1").css("display","none");
@@ -900,6 +872,7 @@ $(document).ready(function() {
 			$(".taxInformation2 .componyRenzheng2").css("display","none");
 			$(".taxInformation2 .componyRenzheng3").css("display","block");
 		}
+		
 	}
 	if(componyData.status == 1) {
 		$("#footerList .footer3").bind("click", function() {
@@ -918,12 +891,9 @@ $(document).ready(function() {
 		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
 		$(".insetComponyInfor .insetComponyInfor1").css("display", "none");
 		$(".insetComponyInfor .insetComponyInfor2").css("display", "block");
-		$(".taxStepList .taxMask3").css("display","block");
-		$(".taxStepList .taxMask4").css("display","block");
+		
 		$(".taxInformation2 .componyRenzheng").css("display","none");
 		$(".taxInformation2 .componyRenzheng2").css("display","block");
-		$(".taxStepList2").css("z-index",0);
-		$(".taxStepList3").css("z-index",1);
 	}
 	if(componyData.status == 2) {
 		$("#footerList .footer3").bind("click", function() {
@@ -958,8 +928,6 @@ $(document).ready(function() {
 			$("#taxStep .taxStepList1").removeClass("active3");
 			$("#taxStep .taxStepList2").removeClass("active3");
 			$("#taxStep .taxStepList3").addClass("active3");
-			$(".taxStepList .taxMask3").css("display","none");
-			$(".taxStepList .taxMask4").css("display","block");
 		}
 		if(orderList.code == 200) {
 			$(".taxStepList4 .taxStepBtn").css("color", "#12AAEB");
@@ -981,8 +949,6 @@ $(document).ready(function() {
 			$("#taxStep .taxStepList2").removeClass("active3");
 			$("#taxStep .taxStepList3").removeClass("active3");
 			$("#taxStep .taxStepList4").addClass("active3");
-			$(".taxStepList .taxMask3").css("display","none");
-			$(".taxStepList .taxMask4").css("display","none");
 		}
 		if(componyData.uniformnumber!=="0"){
 			$(".taxInformation2 .componyRenzheng").css("display","none");
@@ -1018,8 +984,7 @@ $(document).ready(function() {
 		$("#taxStep .taxStepList2").addClass("active3");
 		$(".taxStepList3 .taxStepBtn").attr("disabled",true);
 		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
-		$(".taxStepList .taxMask3").css("display","block");
-		$(".taxStepList .taxMask4").css("display","block");
+
 	}
 	/*企业认证*/
 	/*上传发票1打开和关闭*/
@@ -1089,7 +1054,7 @@ $(document).ready(function() {
 		
 	})
 	
-	$(".taxStepList .taxMask2").bind("click", function() {
+	$(".taxStepList2").bind("click", function() {
 		if(componyData.status == -1){
 			alert("请先注册公司,再上传发票");
 		}
@@ -1105,7 +1070,7 @@ $(document).ready(function() {
 		}
 	})
 	
-	$(".taxStepList .taxMask3").bind("click", function() {
+	$(".taxStepList3").bind("click", function() {
 		if(componyData.status == -1) {
 			alert("请先注册公司,再查看发票");
 		}else if(componyData.status == 0){
@@ -1124,7 +1089,7 @@ $(document).ready(function() {
 			$(".enterprise .enterprise1").css("display", "block");
 		}
 	})
-	$(".taxStepList .taxMask4").bind("click", function() {
+	$(".taxStepList4").bind("click", function() {
 		if(componyData.status == -1) {
 			alert("请先注册公司");
 		}else if(componyData.status == 0){
@@ -1276,6 +1241,7 @@ $(document).ready(function() {
 		}
 
 	})
+
 })
 
 /*生成订单*/
@@ -1290,7 +1256,9 @@ $(".invoiceInfor2Btn .invoiceInfor2Btn2").bind("click", function() {
 			InvoiceIDs.push($(".InvoiceIDs")[i].value);
 			orderListVal["TaskID"] = TaskID;
 			orderListVal["InvoiceIDs"] = InvoiceIDs;
+
 			InvoiceTasks.push(orderListVal);
+
 		}
 		invoiceOrder(InvoiceTasks)
 	} else {

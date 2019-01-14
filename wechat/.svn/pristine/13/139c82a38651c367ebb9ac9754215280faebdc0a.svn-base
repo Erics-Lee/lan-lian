@@ -45,15 +45,15 @@
 						<img class="renZhengPic" src="img/renZheng.png" />
 						<ul>
 							<li class="renzhengBig">未认证</li>
-							<!--<li class="renzhengSmall">
+							<li class="renzhengSmall">
 								<span class="renzhengSmall1"></span>
 								<span class="renzhengSmall2">安全退税</span>
-							</li>-->
+							</li>
 						</ul>
 					</div>
 					<div class="renZheng2">
-						<p class="renZheng2Big">请申请企业认证 >></p>
-						<!--<p class="renZheng2Small">赶紧去申请企业认证>></p>-->
+						<p class="renZheng2Big">花少量时间，保护您的最大权益</p>
+						<p class="renZheng2Small">赶紧去申请企业认证>></p>
 					</div>
 					<div class="renZheng3">企业认证</div>
 				</div>
@@ -62,34 +62,34 @@
 						<img class="renZheng1Pic" src="img/renZheng2.png" />
 						<ul>
 							<li class="renzhengBig">已认证</li>
-							<!--<li class="renzhengSmall">
+							<li class="renzhengSmall">
 								<span class="renzhengSmall1"></span>
 								<span class="renzhengSmall2">安全退税</span>
-							</li>-->
+							</li>
 						</ul>
 					</div>
 					<div class="renZheng2">
-						<p class="renZheng2Big">尊贵的企业用户>></p>
-						<!--<p class="renZheng2Small">尊贵的企业用户>></p>-->
+						<p class="renZheng2Big">花少量时间，保护您的最大权益</p>
+						<p class="renZheng2Small">尊贵的企业用户您好>></p>
 					</div>
-					<div class="renZheng3">添加银行</div>
+					<div class="renZheng3">添加银行账户</div>
 				</div>
 				<div class="yiRenZheng2">
 					<div class="renZheng1">
 						<img class="renZheng1Pic" src="img/renZheng2.png" />
 						<ul>
 							<li class="renzhengBig">已认证</li>
-							<!--<li class="renzhengSmall">
+							<li class="renzhengSmall">
 								<span class="renzhengSmall1"></span>
 								<span class="renzhengSmall2">安全退税</span>
-							</li>-->
+							</li>
 						</ul>
 					</div>
 					<div class="renZheng2">
-						<p class="renZheng2Big">尊贵的企业用户>></p>
-						<!--<p class="renZheng2Small">尊贵的企业用户您好>></p>-->
+						<p class="renZheng2Big">花少量时间，保护您的最大权益</p>
+						<p class="renZheng2Small">尊贵的企业用户您好>></p>
 					</div>
-					<div class="renZheng3">查看银行</div>
+					<div class="renZheng3">查看银行账户</div>
 				</div>
 			</div>
 			<div class="content">
@@ -227,7 +227,6 @@
 								<option value="5">交通银行</option>
 								<option value="6">中国邮政储蓄银行</option>
 								<option value="7">中国民生银行</option>
-								<option value="8">招商银行</option>
 							</select>
 						</li>
 						<li>
@@ -240,7 +239,7 @@
 						</li>
 						<li>
 							<p>用户名：</p>
-							<input placeholder="用户名自动获取" id="bankUserName2" readonly="readonly"/>
+							<input placeholder="用户名自动获取" id="bankUserName2" />
 						</li>
 					</ul>
 					<div class="bankBtn2">

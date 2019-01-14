@@ -196,9 +196,9 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public String invoiceQuery(String sessionKey, String tasksid, String invoiceid) {
+    public String invoiceQuery(String sessionKey, String taskid, String invoiceid) {
         Map map = new HashMap();
-        map.put("tasksid", tasksid);
+        map.put("taskid", taskid);
         map.put("invoiceid", invoiceid);
         map.put("IsBase64Code", "0");
 
@@ -256,9 +256,9 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public String invoicePhoto(String sessionKey, String tasksid, String invoiceid) {
+    public String invoicePhoto(String sessionKey, String taskid, String invoiceid) {
         Map map = new HashMap();
-        map.put("tasksid", tasksid);
+        map.put("taskid", taskid);
         map.put("invoiceid", invoiceid);
         map.put("IsBase64Code", "0");
 

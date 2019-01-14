@@ -128,16 +128,16 @@
 								<li>
 									<div>
 										<img src="img/compony.png" />
-										<p class="enName">bdfharddafhgerahbdfharddafhgerahbdfharddafhgerah</p>
-										<span class="xiaHua"><img src="img/downArr.png"/></span>
+										<p>English name</p>
 									</div>
+									<p class="enName">shanghaidegongsi</p>
 								</li>
 								<li>
 									<div>
 										<img src="img/adress.png" />
-										<p class="enName">bdfharddafhgerahbdfharddafhgerahbdfharddafhgerahbdfharddafhgerah</p>
-										<span class="xiaHua"><img src="img/downArr.png"/></span>
+										<p>English address</p>
 									</div>
+									<p class="enName">shanghaide</p>
 								</li>
 							</ul>
 							<ul class="chComponyInfor" id="chComponyInfor">
@@ -454,13 +454,10 @@
 								以下发票上传失败，选择重新上传或取消上传
 							</li>
 							<li class="small" id="imgFalse">
+								<!--<span><img src="img/16.jpg"></span>
 								<span><img src="img/16.jpg"></span>
 								<span><img src="img/16.jpg"></span>
-								<span><img src="img/16.jpg"></span>
-								<span><img src="img/16.jpg"></span>
-								<span><img src="img/16.jpg"></span>
-								<span><img src="img/16.jpg"></span>
-								
+								-->
 							</li>
 							<li class="maskBtn">
 								<div class="maskBtn1">取消</div>
@@ -792,7 +789,9 @@
 				$(".componyInfo0")[0].oninput = function() {
 					var re = /^[\u4e00-\u9fa5]{4,99}$/i;
 					var name = $(".componyInfo0")[0].value;
+					console.log(name);
 					var length = (name.toString()).length;
+					console.log(length);
 					if (re.test(name)) {
 						if(length>=4){
 							var data = selectCompanyInfoByName(name);

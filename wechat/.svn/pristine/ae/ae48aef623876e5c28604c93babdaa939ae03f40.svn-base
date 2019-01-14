@@ -55,25 +55,21 @@
 							<img src="img/11.png" />
 							<input type="button" value="企业信息" class="taxStepBtn taxStepBtn1" />
 							<div class="taxStepBottom"></div>
-							<div class="taxMask1"></div>
 						</li>
 						<li class="taxStepList taxStepList2">
 							<img src="img/23.png" />
 							<input type="button" value="上传发票" class="taxStepBtn taxStepBtn2" />
 							<div class="taxStepBottom"></div>
-							<div class="taxMask2"></div>
 						</li>
 						<li class="taxStepList taxStepList3">
 							<img src="img/33.png" />
 							<input type="button" value="申请退税" class="taxStepBtn taxStepBtn3" />
 							<div class="taxStepBottom"></div>
-							<div class="taxMask3"></div>
 						</li>
 						<li class="taxStepList taxStepList4">
 							<img src="img/43.png" />
 							<input type="button" value="退税订单" class="taxStepBtn taxStepBtn4" />
 							<div class="taxStepBottom"></div>
-							<div class="taxMask4"></div>
 						</li>
 					</ul>
 				</div>
@@ -128,16 +124,16 @@
 								<li>
 									<div>
 										<img src="img/compony.png" />
-										<p class="enName">bdfharddafhgerahbdfharddafhgerahbdfharddafhgerah</p>
-										<span class="xiaHua"><img src="img/downArr.png"/></span>
+										<p>English name</p>
 									</div>
+									<p class="enName">shanghaidegongsi</p>
 								</li>
 								<li>
 									<div>
 										<img src="img/adress.png" />
-										<p class="enName">bdfharddafhgerahbdfharddafhgerahbdfharddafhgerahbdfharddafhgerah</p>
-										<span class="xiaHua"><img src="img/downArr.png"/></span>
+										<p>English address</p>
 									</div>
+									<p class="enName">shanghaide</p>
 								</li>
 							</ul>
 							<ul class="chComponyInfor" id="chComponyInfor">
@@ -208,9 +204,7 @@
 								<img src="img/rightArr2.png" />
 							</div>-->
 							<div id="taxBox"></div>
-							
 						</div>
-						
 						<div class="invoiceInfor">
 							<div class="invoiceInfor1">
 								<p class="invoiceInfor1Top">审核中的发票</p>
@@ -236,7 +230,7 @@
 									<ul class="invoiceInformation" id="invoiceInformation">
 
 									</ul>
-									<div style="width: 100%;height: 80px;"></div>
+									<div style="width: 100%;height: 60px;"></div>
 									<div class="invoiceInfor2Btn">
 										<div class="invoiceInfor2Btn1">
 											<div id="invoiceInfor2Btn1Div" class="active12"></div>
@@ -454,13 +448,10 @@
 								以下发票上传失败，选择重新上传或取消上传
 							</li>
 							<li class="small" id="imgFalse">
+								<!--<span><img src="img/16.jpg"></span>
 								<span><img src="img/16.jpg"></span>
 								<span><img src="img/16.jpg"></span>
-								<span><img src="img/16.jpg"></span>
-								<span><img src="img/16.jpg"></span>
-								<span><img src="img/16.jpg"></span>
-								<span><img src="img/16.jpg"></span>
-								
+								-->
 							</li>
 							<li class="maskBtn">
 								<div class="maskBtn1">取消</div>
@@ -792,15 +783,17 @@
 				$(".componyInfo0")[0].oninput = function() {
 					var re = /^[\u4e00-\u9fa5]{4,99}$/i;
 					var name = $(".componyInfo0")[0].value;
+					console.log(name);
 					var length = (name.toString()).length;
+					console.log(length);
 					if (re.test(name)) {
 						if(length>=4){
+							$(".addComponyList").css("display", "block");
 							var data = selectCompanyInfoByName(name);
 							console.log(data);
 							var addComponyList = document.getElementById("addComponyList");
 							addComponyList.innerHTML="";
 							if(data.code == 200) {
-								$(".addComponyList").css("display", "block");
 								var secondData = data.data;
 								for(var i = 0; i < secondData.length; i++) {
 									var addComponyListBox = document.createElement("li");
@@ -811,19 +804,19 @@
 		
 							}else{
 								alert("查询无结果,请输入关键字搜索");
-								$(".addComponyList").css("display", "none");
+								return;
 							}
-							var addList = document.getElementsByClassName("addList");
-							for(var i = 0; i < addList.length; i++) {
-								addList[i].onclick = function() {
-									var componyName=$(this).html();
-									$(".componyInfo0").val(componyName)
-									$(".addComponyList").css("display", "none");
-								}
-							}
+							return;
 						}
 						
-						
+						var addList = document.getElementsByClassName("addList");
+						for(var i = 0; i < addList.length; i++) {
+							addList[i].onclick = function() {
+								var componyName=$(this).html();
+								$(".componyInfo0").val(componyName)
+								$(".addComponyList").css("display", "none");
+							}
+						}
 					}else{
 						$(".addComponyList").css("display", "none");
 					}

@@ -641,8 +641,7 @@ $(document).ready(function() {
 							<div class="' + ableInvoice + '">申请退税</div>\
 						</div>\
 					</li>'
-					$("#invoiceListBox").prepend(inviceList2);
-				/*invoiceListBox.prepend(inviceList2);*/
+				invoiceListBox.prepend(inviceList2);
 
 			}
 			if(secondData[i].status == 0) {
@@ -684,8 +683,7 @@ $(document).ready(function() {
 						<input type="hidden" class="InvoiceIDs" name="invoiceid" value="' + invoiceThirdData[j].invoiceid + '"/>'
 					taxBoxList.appendChild(taxBoxList2);
 				}
-				$("#taxBox").prepend(taxBoxList);
-				/*taxBox.prepend(taxBoxList);*/
+				taxBox.prepend(taxBoxList);
 				
 			}
 			
@@ -814,22 +812,17 @@ $(document).ready(function() {
 			'<li>\
 				<div>\
 					<img src="img/compony.png" />\
-					<p class="enName" id="cantDo2">' + componyData.compayname + '</p>\
+					<p>English name</p>\
 				</div>\
+				<p class="enName" id="cantDo2">' + componyData.compayname + '</p>\
 			</li>\
 			<li>\
 				<div>\
 					<img src="img/adress.png" />\
-					<p class="enName" id="cantDo3">' + componyData.englishaddress + '</p>\
+					<p>English address</p>\
 				</div>\
+				<p class="enName" id="cantDo3">' + componyData.englishaddress + '</p>\
 			</li>'
-
-			/* str = text.innerHTML,
-            textLeng = 20;
-            if(str.length > textLeng ){
-                  text .innerHTML = str.substring(0,textLeng )+"... ...";
-            } */
-
 
 		var chComponyInfor = document.getElementById("chComponyInfor");
 		chComponyInfor.innerHTML =
