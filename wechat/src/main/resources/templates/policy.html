@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>蓝联退税</title>
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/jquery.min.js" ></script>
+				<script type="text/javascript" src="js/login.js"></script>
+		
+	</head>
+
+	<body>
+		<div id="wrap9">
+			<div class="content">
+				<div class="policyListBox">
+					<div class="policyListBox1" id="policyList">
+						<!--<div class="policyList">
+							<div>
+								<p class="policy">英国退税政策</p>
+								<p class="policyData"><img src="img/rightArr.png"></p>
+							</div>
+						</div>
+						<div class="policyList">
+							<div>
+								<p class="policy">法国退税政策</p>
+								<p class="policyData"><img src="img/rightArr.png"></p>
+							</div>
+						</div>-->
+					</div>
+					<div style="width: 100%;height: 60px;"></div>
+				</div>
+			</div>
+			<div class="footer" id="footer">
+				<div class="footer1">
+					<img src="img/index2.png"/>
+					<p class="active9">主页</p>
+				</div>
+				<div class="footer2">
+					<img src="img/tax.png"/>
+					<p>退税</p>
+				</div>
+				<div class="footer3">
+					<img src="img/mine.png"/>
+					<p>个人中心</p>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/dali.js" ></script>
+		<script>
+			$(document).ready(function(){
+				$("#footer .footer1").bind("click", function() {
+					//window.location.href="index.html"
+					window.location.href = localhost + '/index';//"index.html"
+				})
+				$("#footer .footer2").bind("click", function() {
+					window.location.href = localhost + '/tax';//"tax.html"
+				})
+				/*$("#footer .footer3").bind("click", function() {
+					window.location.href = localhost + '/mine';//"mine.html"
+				})*/
+				
+				var compony = selectCompanyLetterhead();
+				console.log(compony);
+				if(compony.code==400){
+					$("#footer .footer3").bind("click", function() {
+						window.location.href = localhost + '/mine2';//"mine2.html";
+					})
+				}
+				var secondData = compony.data;
+				if(secondData.status == -1 || secondData.status == 1 || secondData.status == 3||secondData.status == 0) {
+					$("#footer .footer3").bind("click", function() {
+						window.location.href = localhost + '/mine2';//"mine2.html";
+					})
+				}
+				if(secondData.status == 2) {
+					$("#footer .footer3").bind("click", function() {
+						window.location.href = localhost + '/mine'; //"mine.html";
+					})
+				}
+				
+				/*政策列表*/
+				var data=selectTaxRefundCountrys();
+				console.log(data);
+				var policyListBox=document.getElementById("policyList");
+				if(data.code==200){
+					var secondData=data.data;
+					for(var i=0;i<secondData.length;i++){
+						var policyList=document.createElement("div");
+						policyList.className="policyList";
+						policyList.innerHTML=
+						'<div>\
+							<input type="hidden" name="countryNumber" value="'+secondData[i].countryNumber+'">\
+							<p class="policy">'+secondData[i].chinaName+'退税政策</p>\
+							<p class="policyData"><img src="img/rightArr.png"></p>\
+						</div>'
+						policyListBox.appendChild(policyList);
+						$("#policyList .policyList").bind("click", function() {
+							var countryNumber = $(this).find('[name="countryNumber"]').val();
+							window.location.href = localhost + "/policyInformation?countryNumber="+countryNumber;//"policyInformation.html?countryNumber="+countryNumber;
+						})
+					}
+				}else{
+					alert("网络出错啦，请稍候再试。")
+				}
+			})
+		</script>
+		
+	</body>
+
+</html>

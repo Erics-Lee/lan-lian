@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>蓝联退税</title>
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/jquery.min.js" ></script>
+		<script type="text/javascript" src="js/login.js" ></script>
+	</head>
+	<body>
+		<div id="wrap7">
+			<div class="header" id="questionInfor">
+				<p class="countryName">怎样进行退税申请</p>
+				<span class="countNameBoder"></span>
+			</div>
+			<div class="content">
+				<ul id="questionInforContent1">
+					<!--<li>退税政策：</li>
+					<li><span>1</span>、<span>发票上申请退税的企业注册地址的抬头为非英国(非欧盟)国家境内</p></li>
+					<li>2、采购的货物或服务必须用于商业目的</li>
+					<li>3、在申请人国家，能够被证明为当前有效的纳税主体</li>
+					<li>4、同一家公司每个退税申请周期内，单批次退税申请的最小起退金额累计至130英镑及以上</li>
+					<li>5、每个退税周期的日期起止为该自然年度的7月1日至次年的6月30日，有效可退发票的日期计算以该发票发生消费的日期为准；当期退税申请的截止日期为：发票消费日期年度的次年8月30日：同一家公司只能每一个月中报一次退税。</li>
+					<li>6、退税周期通常是6个月到12个月，如果在剩余时间不足3个月的年末，也可以申请退税</li>
+					<li>7、对于不能退税的项目，英国当局有相关内容</li>
+					<li>非商务目的的供应品</li>
+					<li>用于在</li>
+					<li>娱乐费用</li>
+					<li>出口货物</li>-->
+				</ul>
+				<div style="width: 100%;height: 60px;"></div>
+			</div>
+			<div class="footer" id="footer">
+				<div class="footer1">
+					<img src="img/index.png"/>
+					<p>主页</p>
+				</div>
+				<div class="footer2">
+					<img src="img/tax.png"/>
+					<p>退税</p>
+				</div>
+				<div class="footer3">
+					<img src="img/mine2.png"/>
+					<p class="active9">个人中心</p>
+				</div>
+			</div>
+		</div>
+		<div id="questionOrderNumber" th:text="${questionOrderNumber}" style="display: none"></div>
+		<script type="text/javascript" src="js/dali.js" ></script>
+		<script>
+			$(document).ready(function(){
+				$("#footer .footer1").bind("click", function() {
+					window.location.href = localhost + '/index';//"index.html"
+				})
+				$("#footer .footer2").bind("click", function() {
+					window.location.href = localhost + '/tax';//"tax.html"
+				})
+				$("#footer .footer3").bind("click", function() {
+					window.location.href = localhost + '/mine'; //"mine.html"
+				})
+				
+				var questionOrderNumber= $("#questionOrderNumber").html();//getPar("questionOrderNumber");
+				var questionInfor=selectOfficialAnswer(questionOrderNumber);
+				console.log(questionInfor);
+				var secondData=questionInfor.data;
+				var thirdData=secondData.Answer;
+				var questionInfor2=document.getElementById("questionInfor");
+				questionInfor2.innerHTML=
+				'<p class="countryName">'+secondData.Question+'</p>'
+				
+				var questionInforContent1=document.getElementById("questionInforContent1");
+				for(var i=0;i<thirdData.length;i++){
+					var questionInforContent2=document.createElement("li");
+					questionInforContent2.innerHTML=thirdData[i]
+					questionInforContent1.appendChild(questionInforContent2);
+				}
+				
+				
+			})
+		</script>
+	</body>
+</html>

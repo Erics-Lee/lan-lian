@@ -1,0 +1,32 @@
+package com.unionblue.wechat.service;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Created by 18501 on 2018/9/19.
+ */
+public interface UserService {
+
+    String accountExtendProfileQuery(String sessionKey);
+
+	String accountSimpleProfileUpdate(String sessionKey, String nickname);
+
+    String accountExtendProfileUpdate(String sessionKey, String mobilephonenumber, String secndemailaddress);
+
+    String userDetail(String sessionKey);
+
+	String registerEMail(String account, String societyIDToken, String parentAppKey);
+
+	String accountCertification(String account, String verificationCode);
+
+	String societyQueryAccount(HttpServletRequest request, String societyIDToken);
+
+	String firstLogin(String societyIDToken, String parentAppKey, String account, String sessionKey);
+
+	String sendVerificateCode(String account, String parentAppKey);
+
+	String registerEMail2(String account, String passwd, String parentAppKey);
+
+	String societyLogin2(String societyIDToken, String parentAppKey, String sessionKey);
+
+}

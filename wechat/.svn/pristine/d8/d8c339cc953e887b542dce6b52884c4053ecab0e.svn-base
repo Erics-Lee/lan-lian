@@ -1,0 +1,59 @@
+### Redis
+# Redis数据库索引（默认为0）
+spring:
+  thymeleaf.mode: LEGACYHTML5
+  redis:
+    database: 0
+# Redis服务器地址
+    host: 127.0.0.1
+# Redis服务器连接端口
+    port: 6379
+# Redis服务器连接密码（默认为空）
+    password: pass1234
+## 连接池最大连接数（使用负值表示没有限制）
+    pool.max-active: 8
+## 连接池最大阻塞等待时间（使用负值表示没有限制）
+    pool.max-wait: -1
+## 连接池中的最大空闲连接
+    pool.max-idle: 8
+## 连接池中的最小空闲连接
+    pool.min-idle: 0
+## 连接超时时间（毫秒,等于0时很容易连接超时）
+    timeout: 5000
+
+#tomcat配置
+server:
+  #上传发票的大小限制大小，1024为1k
+  maxHttpHeaderSize: 5096000
+  Port: 8088
+  max-http-header-size: 5096000
+   
+
+logging:
+#配置日志文件路径
+  level:
+    xatu.zsl: debug #不同目录下的日志可配置不同级别
+    org.springfromework.web: info
+    org.hibernate: error
+#采用相对路径方式将日志文件输出到【log\myspringboot.log】
+  file: log\myspringboot.log
+  
+defaultMessage:
+  defaultMessage: " 我已收到您的请求"
+
+wechat:
+ #wxef7bd43260635bd0  8cc37f84d60bc2401272084c31cdab93
+ appID: wxc6f9018e8cb60714
+ appsecret: 862ebc8142f663e600587f41d421cd76
+ 
+qixin:
+ appkey: de22f9f2d280444a8661494f156b5e2e
+ 
+api:
+ #测试接口地址
+ #url: http://hyisoft.f3322.net:8088/eTaxAPIs/eTaxAPIs100
+ #正式接口地址
+ url: https://api.taxchain.one/eTaxAPIs100
+ 
+
+   

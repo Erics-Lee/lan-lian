@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>蓝联退税</title>
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/jquery.min.js" ></script>
+				<script type="text/javascript" src="js/login.js"></script>
+		
+	</head>
+	<body>
+		<div id="wrap10">
+			<div class="header" id="policyHeader">
+				<p class="countryName">英国退税政策</p>
+				<p class="countryDate">Last updated in January 2018</p>
+			</div>
+			<div class="content">
+				<ul id="policyInformationContent1">
+					<!--<li>退税政策：</li>
+					<li><span>1</span>、<span>发票上申请退税的企业注册地址的抬头为非英国(非欧盟)国家境内</span></li>
+					<li>2、采购的货物或服务必须用于商业目的</li>
+					<li>3、在申请人国家，能够被证明为当前有效的纳税主体</li>
+					<li>4、同一家公司每个退税申请周期内，单批次退税申请的最小起退金额累计至130英镑及以上</li>
+					<li>5、每个退税周期的日期起止为该自然年度的7月1日至次年的6月30日，有效可退发票的日期计算以该发票发生消费的日期为准；当期退税申请的截止日期为：发票消费日期年度的次年8月30日：同一家公司只能每一个月中报一次退税。</li>
+					<li>6、退税周期通常是6个月到12个月，如果在剩余时间不足3个月的年末，也可以申请退税</li>
+					<li>7、对于不能退税的项目，英国当局有相关内容</li>
+					<li>非商务目的的供应品</li>
+					<li>用于在</li>
+					<li>娱乐费用</li>
+					<li>出口货物</li>-->
+				</ul>
+				<div style="width: 100%;height: 60px;"></div>
+			</div>
+			<div class="footer" id="footer">
+				<div class="footer1">
+					<img src="img/index2.png"/>
+					<p class="active9">主页</p>
+				</div>
+				<div class="footer2">
+					<img src="img/tax.png"/>
+					<p>退税</p>
+				</div>
+				<div class="footer3">
+					<img src="img/mine.png"/>
+					<p>个人中心</p>
+				</div>
+			</div>
+		</div>
+		<div id="countryNumber" th:text="${countryNumber}" style="display: none"></div>
+		<script type="text/javascript" src="js/dali.js" ></script>
+		<script>
+			$(document).ready(function(){
+				$("#footer .footer1").bind("click", function() {
+					window.location.href = localhost + '/index';//"index.html"
+				})
+				$("#footer .footer2").bind("click", function() {
+					window.location.href = localhost + '/tax';//"tax.html"
+				})
+				/*$("#footer .footer3").bind("click", function() {
+					window.location.href = localhost + '/mine';//"mine.html"
+				})*/
+				
+				var compony = selectCompanyLetterhead();
+				console.log(compony);
+				if(compony.code==400){
+					$("#footer .footer3").bind("click", function() {
+						window.location.href = localhost + '/mine2';//"mine2.html";
+					})
+				}
+				var secondData = compony.data;
+				if(secondData.status == -1 || secondData.status == 1 || secondData.status == 3||secondData.status == 0) {
+					$("#footer .footer3").bind("click", function() {
+						window.location.href = localhost + '/mine2';//"mine2.html";
+					})
+				}
+				if(secondData.status == 2) {
+					$("#footer .footer3").bind("click", function() {
+						window.location.href = localhost + '/mine'; //"mine.html";
+					})
+				}
+				
+				/*政策详情*/
+				var countryNumber = $("#countryNumber").html();//getPar("countryNumber");
+				console.log(countryNumber);
+				var policyList=selectTaxRefundPolicy(countryNumber);
+				
+				console.log(policyList);
+				var secondData=policyList.data[0];
+				var thirdData=secondData.detaileds;
+				var policyHeader=document.getElementById("policyHeader");
+				policyHeader.innerHTML=
+				'<p class="countryName">'+secondData.firstTitle+'</p>\
+				<p class="countryDate">'+secondData.lastUpdateTime+'</p>'
+				
+				var policyInformationContent1=document.getElementById("policyInformationContent1");
+				for(var i=0;i<thirdData.length;i++){
+					var policyInfor=document.createElement("li");
+					policyInfor.innerHTML=
+					'<span style="font-size:14px">'+thirdData[i].orderIndex+'</span>、<span style="font-size:14px">'+thirdData[i].ruleContent+'</span>'
+					policyInformationContent1.appendChild(policyInfor);
+				}
+				
+			})
+		</script>
+	</body>
+</html>

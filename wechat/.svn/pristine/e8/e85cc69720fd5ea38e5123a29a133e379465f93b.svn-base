@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" href="js/easyui/themes/icon.css">
+<script type="text/javascript" src="js/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+<title>宇宙超级无敌大加密术</title>
+</head>
+<body>
+	<div style="margin-left: 3%; margin-top: 60px;">
+		<table>
+			<tr>
+				<td>初级加密本编号:</td>
+				<td><select id="check1" data-options="editable:false"
+					class="easyui-combobox" style="width: 300px;">
+						<option value="0">--请选择--</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td>次级加密本编号:</td>
+				<td><select id="check2" data-options="editable:false"
+					class="easyui-combobox" style="width: 300px;">
+						<option value="0">--请选择--</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+
+				</select></td>
+			</tr>
+			<tr>
+				<td>加密/解密内容:</td>
+				<td><textarea id="text1"
+						style="width: 290px; height: 60px; resize: none;"></textarea></td>
+			</tr>
+			<tr>
+				<td>加密/解密结果:</td>
+				<td><textarea id="text2" th:text="${mima}"
+						style="width: 290px; height: 60px; resize: none;" readonly></textarea></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+				<a href="javascript:jiami();" class="easyui-linkbutton"
+					   data-options="iconCls:'icon-save'">加密</a>
+				<a href="javascript:jiemi();" class="easyui-linkbutton"
+					   data-options="iconCls:'icon-save'">解密</a></td>
+			</tr>
+			
+			
+		</table>
+	</div>
+	<script type="text/javascript">
+	    
+	    //var dataInfo = '${dataInfo}';
+		
+	    function getData() {
+			$.ajax({
+					url : "test1",
+					type : "GET",
+					headers : {
+						'Content-Type' : 'application/x-www-form-urlencoded',
+						'Access-Control-Allow-Origin' : '*'
+					},
+					dataType : "text",
+					data : {
+						"data" : 1
+					},
+					success : function(data) {
+						$("#text2").val(data);
+					},
+					error : function() {
+
+					}
+				});
+		}
+		
+		$(document).ready(function() {
+		//	getData();
+
+		});
+		
+		function jiami(){
+			var data1 = $("#check1").combobox("getText");
+			var data2 = $("#check2").combobox("getText");
+			if($("#check1").combobox("getValue") == -1){
+				
+			}
+			var data3 = $("#text1").val();
+			//var data4 = $("#text2").val();
+			console.log(data1+" "+data2+"  "+data3);
+			$.ajax({
+				url : "/jiami",
+				type : "POST",
+				dataType : "text",
+				async:false,
+                headers : {
+					'Content-Type' : 'application/x-www-form-urlencoded',
+				},
+				data : {
+                    keyA : data1,
+                    keyB : data2,
+                    jiamiStr : data3
+				},
+				success : function(data) {
+                    $("#text2").val(data);
+				},
+				error : function() {
+					alert(1);
+				}
+			});
+		}
+        function jiemi(){
+            var data1 = $("#check1").combobox("getText");
+            var data2 = $("#check2").combobox("getText");
+            if($("#check1").combobox("getValue") == -1){
+
+            }
+            var data3 = $("#text1").val();
+            //var data4 = $("#text2").val();
+            console.log(data1+" "+data2+"  "+data3);
+            $.ajax({
+                url : "/jiemi",
+                type : "POST",
+                dataType : "text",
+                async:false,
+                headers : {
+                    'Content-Type' : 'application/x-www-form-urlencoded',
+                },
+                data : {
+                    keyA : data1,
+                    keyB : data2,
+                    jiamiStr : data3
+                },
+                success : function(data) {
+                    $("#text2").val(data);
+                },
+                error : function() {
+                    alert(1);
+                }
+            });
+        }
+	</script>
+</body>
+</html>
