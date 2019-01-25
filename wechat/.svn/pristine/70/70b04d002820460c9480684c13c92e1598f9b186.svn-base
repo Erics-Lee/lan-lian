@@ -1,10 +1,10 @@
 $(document).ready(function() {
 	$("#footerList .footer1").bind("click", function() {
 		//window.location.href = "index.html"
-		window.location.href = localhost + '/index'; //"index.html"
+		window.location.href = localhost + '/index';//"index.html"
 	})
 	$("#footerList .footer2").bind("click", function() {
-		window.location.href = localhost + '/tax'; //"tax.html"
+		window.location.href = localhost + '/tax';//"tax.html"
 	})
 
 	var result = 0;
@@ -84,6 +84,7 @@ $(document).ready(function() {
 
 	})
 
+	
 	var shouquan = document.getElementById("shouquan");
 	var addComponyBtn = document.getElementById("addComponyBtn");
 	var cantDo = document.getElementById("cantDo");
@@ -324,7 +325,7 @@ $(document).ready(function() {
 	$("#uploadFooter").bind("click", function() {
 		if($(this).hasClass("active6")) {
 			console.log(2552);
-
+			
 			var companyNo = selectCompanyLetterhead().data.companyno;
 			var pushList = [];
 
@@ -345,6 +346,7 @@ $(document).ready(function() {
 		}
 	})
 
+	
 	$(".uploadMask3 .maskBtn1").bind("click", function() {
 		$("#maskBox").css("display", "none");
 		$(".uploadMask .uploadMask3").css("display", "none");
@@ -376,7 +378,7 @@ $(document).ready(function() {
 				'<div id="' + file.id + '" class="file-item thumbnail smallOne" style="z-index:2;width: 100%;height: 100%;margin:0;">' +
 
 				'<img id="imglist" class="imglist" style="width:100%;height:100%;">' +
-
+				
 				'<div class="info">' + file.name + '</div>' +
 
 				'</div>'
@@ -399,19 +401,19 @@ $(document).ready(function() {
 		/*var process = 0;*/
 		for(var i = 0; i < Img3.length; i++) {
 			if(Img3.length > 0) {
-				if($("#creditCode").val() !== "") {
+				if($("#creditCode").val()!==""){
 					photoBtn1.className = "active15";
 				}
 			}
-
+			
 		}
 	})
-	$(".creditCode")[0].oninput = function() {
-		if($("#imglist").attr("src") !== undefined) {
+	$(".creditCode")[0].oninput=function(){
+		if($("#imglist").attr("src")!==undefined){
 			photoBtn1.className = "active15";
 		}
 	}
-
+	
 	/*退税订单部分*/
 	/*三个按钮*/
 	$(".orderInfor4 .orderInforBtn1").bind("click", function() {
@@ -444,11 +446,11 @@ $(document).ready(function() {
 		/*$("#maskBox .phoneBox8").css("display","none");*/
 	})
 	$(".phoneBox8 .maskBtn1").bind("click", function() {
-		$("#maskBox").css("display", "none");
-		$("#maskBox .phoneBox7").css("display", "none");
-		$("#maskBox .phoneBox8").css("display", "none");
-	})
-	/*三个按钮关闭*/
+			$("#maskBox").css("display", "none");
+			$("#maskBox .phoneBox7").css("display", "none");
+			$("#maskBox .phoneBox8").css("display", "none");
+		})
+		/*三个按钮关闭*/
 	$(".phoneBox5 .maskBtn2").bind("click", function() {
 		$("#maskBox").css("display", "none");
 		$("#maskBox .phoneBox5").css("display", "none");
@@ -482,6 +484,7 @@ $(document).ready(function() {
 		var currencysymbol;
 		var tax;
 		for(var i = 0; i < secondData.length; i++) {
+	
 			if(!secondData[i].country) {
 				country = "";
 				srcAdress = "";
@@ -598,9 +601,8 @@ $(document).ready(function() {
 				currencysymbol = "£";
 				tax = 16;
 			}
-
-			var invoiceThirdData = secondData[i].invoices;
-
+			var invoiceThirdData=secondData[i].invoices;
+			
 			if(secondData[i].status == 1) {
 				var ableInviceBottom1 = 0;
 				var tax2 = secondData[i].allInvoiceTaxPrice;
@@ -625,7 +627,7 @@ $(document).ready(function() {
 						<div class="ableInvicetop">\
 							<img class="ableInvoiceImg" src="' + srcAdress + '" />\
 							<p class="ableInvoicep">' + country + '</p>\
-							<p class="ableInvoicep2">可退税金：' + secondData[i].currencysymbol + '' + secondData[i].allInvoiceTaxPrice + '</p>\
+							<p class="ableInvoicep2">可退税金：' + currencysymbol + '' + secondData[i].allInvoiceTaxPrice + '</p>\
 							<input type="hidden" class="countryId1" name="countryId" value="' + secondData[i].country + '"/>\
 							<input type="hidden" class="statusId1" name="statusId" value="' + secondData[i].status + '"/>\
 							<input type="hidden" class="yearLimitAmt" name="yearLimitAmt" value="' + secondData[i].yearLimitAmt + '"/>\
@@ -639,7 +641,7 @@ $(document).ready(function() {
 							<div class="' + ableInvoice + '">申请退税</div>\
 						</div>\
 					</li>'
-				$("#invoiceListBox").prepend(inviceList2);
+					$("#invoiceListBox").prepend(inviceList2);
 				/*invoiceListBox.prepend(inviceList2);*/
 
 			}
@@ -666,27 +668,27 @@ $(document).ready(function() {
 				invoiceListBox.appendChild(inviceList3);
 
 			}
-
+			
 		}
-		var taxBox = document.getElementById("taxBox");
-		for(var i = 0; i < secondData.length; i++) {
-			if(secondData[i].status == 1) {
-				var taxBoxList = document.createElement("div");
-				taxBoxList.className = "taxBoxList";
-
-				var invoiceThirdData = secondData[i].invoices;
-				for(var j = 0; j < invoiceThirdData.length; j++) {
-					var taxBoxList2 = document.createElement("span");
-					taxBoxList2.innerHTML =
+		var taxBox=document.getElementById("taxBox");
+		for(var i = 0; i < secondData.length; i++){
+			if(secondData[i].status == 1){
+				var taxBoxList=document.createElement("div");
+				taxBoxList.className="taxBoxList";
+				
+				var invoiceThirdData=secondData[i].invoices;
+				for(var j=0;j<invoiceThirdData.length;j++){
+					var taxBoxList2=document.createElement("span");
+					taxBoxList2.innerHTML=
 						'<input type="hidden" class="taskId" name="taskid" value="' + invoiceThirdData[j].tasksid + '" />\
 						<input type="hidden" class="InvoiceIDs" name="invoiceid" value="' + invoiceThirdData[j].invoiceid + '"/>'
 					taxBoxList.appendChild(taxBoxList2);
 				}
 				$("#taxBox").prepend(taxBoxList);
 				/*taxBox.prepend(taxBoxList);*/
-
+				
 			}
-
+			
 		}
 		/*未审核的点击查看*/
 		$(".inviceListBox .inviceList1").bind("click", function() {
@@ -700,7 +702,7 @@ $(document).ready(function() {
 			var country = "";
 			InvoicesTasksQueryB(status, country);
 		})
-		/*生成的发票列表点击查看*/
+			/*生成的发票列表点击查看*/
 		$(".inviceListBox .ableInvicetop").bind("touchend", function() {
 			$("#loading").css("display", "block");
 			$(".inviceListBox").css("display", "none");
@@ -710,15 +712,15 @@ $(document).ready(function() {
 			$(".invoiceInfor .invoiceInfor3").css("display", "none");
 			var status = $(this).find('[name="statusId"]').val();
 			var country = $(this).find('[name="countryId"]').val();
-			var yearLimitAmt = $(this).find('[name="yearLimitAmt"]').val();
+			var yearLimitAmt= $(this).find('[name="yearLimitAmt"]').val();
 			var invoiceInfor = InvoicesTasksQueryB(status, country);
-
+			
 		})
 		/*不可退发票的点击查看*/
 		$(".inviceListBox .inviceList3").bind("click", function() {
-			if($(".shenHe2").html() == "0张") {
+			if($(".shenHe2").html()=="0张"){
 				return;
-			} else {
+			}else{
 				$(".inviceListBox").css("display", "none");
 				$(".insetComponyInfor3 .invoiceInfor").css("display", "block");
 				$(".invoiceInfor .invoiceInfor3").css("display", "block");
@@ -728,7 +730,7 @@ $(document).ready(function() {
 				var country = "";
 				InvoicesTasksQueryB(status, country);
 			}
-
+			
 		})
 
 		/*一键生成订单*/
@@ -737,41 +739,42 @@ $(document).ready(function() {
 		})
 		$(".ableInviceBottom .active14").bind("click", function() {
 			var InvoiceTasks = [];
-			var InvoiceTasks3 = [];
-			var index = $(".ableInviceBottom .active14").index(this)
+			var InvoiceTasks3=[];
+			var index=$(".ableInviceBottom .active14").index(this)
 			console.log(index);
-			var taxBox = $("#taxBox .taxBoxList").eq(index).children().children();
+			var taxBox=$("#taxBox .taxBoxList").eq(index).children().children();
 			console.log(index);
 			console.log(taxBox);
-
+			
 			for(var i = 0; i < taxBox.length; i++) {
 				var orderListVal = {};
 				var InvoiceIDs = [];
-				if(taxBox[i].getAttribute('class').indexOf('taskId') > -1) {
+				if(taxBox[i].getAttribute('class').indexOf('taskId')>-1){
 					console.log(taxBox[i].value);
-					var TasksID = taxBox[i].value;
-				} else if(taxBox[i].getAttribute('class').indexOf('InvoiceIDs') > -1) {
+					var TaskID = taxBox[i].value;
+				}else if(taxBox[i].getAttribute('class').indexOf('InvoiceIDs')>-1){
 					console.log(taxBox[i].value);
 					InvoiceIDs.push(taxBox[i].value);
-
+					
 				}
-				console.log(TasksID);
-				orderListVal["TasksID"] = TasksID;
+				console.log(TaskID);
+				orderListVal["TaskID"] = TaskID;
 				console.log(InvoiceIDs);
 				orderListVal["InvoiceIDs"] = InvoiceIDs;
 				console.log(orderListVal);
 				InvoiceTasks.push(orderListVal);
-
+				
 			}
-			for(var i = 0; i < InvoiceTasks.length; i++) {
-				var InvoiceTasks2 = eval(InvoiceTasks[i]);
-				if(InvoiceTasks2.InvoiceIDs.length !== 0) {
+			for(var i=0;i<InvoiceTasks.length;i++){
+				var InvoiceTasks2=eval(InvoiceTasks[i]);
+				if(InvoiceTasks2.InvoiceIDs.length!==0){
 					console.log(InvoiceTasks2.InvoiceIDs.length);
 					InvoiceTasks3.push(InvoiceTasks[i]);
 				}
 			}
 			console.log(InvoiceTasks3);
 			invoiceOrder(InvoiceTasks3);
+			
 
 		})
 
@@ -795,24 +798,24 @@ $(document).ready(function() {
 	var componyData = compony.data;
 	var contact;
 	var email;
-	if(componyData.contact) {
-		contact = componyData.contact;
-	} else {
-		contact = "";
+	if(componyData.contact){
+		contact=componyData.contact;
+	}else{
+		contact="";
 	}
-	if(componyData.email) {
-		email = componyData.email
-	} else {
-		email = "";
+	if(componyData.email){
+		email=componyData.email
+	}else{
+		email="";
 	}
-
+	
 	if(componyData.rawcompanyname) {
 		$("#loading").css("display", "none");
 		$(".insetComponyInfor1 .taxInformation").css("display", "none");
 		$(".insetComponyInfor1 .taxInformation2").css("display", "block");
 		var enComponyInfor = document.getElementById("enComponyInfor");
 		enComponyInfor.innerHTML =
-			'<li>\
+		'<li>\
 			<div class="enComponyInforList3 enComponyInforList">\
 				<img src="img/compony.png" />\
 				<p class="enName" id="cantDo2">' + componyData.compayname + '</p>\
@@ -829,11 +832,12 @@ $(document).ready(function() {
 			</div>\
 		</li>'
 
-		/* str = text.innerHTML,
+			/* str = text.innerHTML,
             textLeng = 20;
             if(str.length > textLeng ){
                   text .innerHTML = str.substring(0,textLeng )+"... ...";
             } */
+
 
 		var chComponyInfor = document.getElementById("chComponyInfor");
 		chComponyInfor.innerHTML =
@@ -859,39 +863,41 @@ $(document).ready(function() {
 			'<input type="text" value="' + componyData.email + '" />'
 	}
 	/*下拉显示英文公司名称和地址*/
-	$("#enComponyInfor .xiaHua").bind("click", function() {
-		var index = $("#enComponyInfor .xiaHua").index(this);
-		if($("#enComponyInfor p").eq(index).hasClass("enName")) {
+	$("#enComponyInfor .xiaHua").bind("click",function(){
+		console.log(121);
+		var index=$("#enComponyInfor .xiaHua").index(this);
+		console.log(index);
+		if($("#enComponyInfor p").eq(index).hasClass("enName")){
 			$("#enComponyInfor p").eq(index).removeClass("enName");
 			$("#enComponyInfor p").eq(index).addClass("enName2");
 			$("#enComponyInfor .enComponyInforList3").eq(index).removeClass("enComponyInforList")
 			$("#enComponyInfor .enComponyInforList3").eq(index).addClass("enComponyInforList2");
-		} else {
+		}else{
 			$("#enComponyInfor p").eq(index).removeClass("enName2");
 			$("#enComponyInfor p").eq(index).addClass("enName");
 			$("#enComponyInfor .enComponyInforList3").eq(index).removeClass("enComponyInforList2");
 			$("#enComponyInfor .enComponyInforList3").eq(index).addClass("enComponyInforList");
 		}
-
+		
 	})
 	/*区别是不是管理者还是代理者*/
 	if(componyData.status == -1) {
 		$("#footerList .footer3").bind("click", function() {
-			window.location.href = localhost + '/mine2'; //"mine2.html";
+			window.location.href = localhost + '/mine2';//"mine2.html";
 		})
 		$(".insetComponyInfor1 .taxInformation").css("display", "block");
 		$(".taxStepList1 .taxStepBottom").css("display", "block");
 		$(".taxStepList1 .taxStepBtn").css("color", "#12AAEB");
-		$(".taxStepList2 .taxStepBtn").attr("disabled", true);
-		$(".taxStepList3 .taxStepBtn").attr("disabled", true);
-		$(".taxStepList4 .taxStepBtn").attr("disabled", true);
-		$(".taxStepList .taxMask2").css("display", "block");
-		$(".taxStepList .taxMask3").css("display", "block");
-		$(".taxStepList .taxMask4").css("display", "block");
+		$(".taxStepList2 .taxStepBtn").attr("disabled",true);
+		$(".taxStepList3 .taxStepBtn").attr("disabled",true);
+		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
+		$(".taxStepList .taxMask2").css("display","block");
+		$(".taxStepList .taxMask3").css("display","block");
+		$(".taxStepList .taxMask4").css("display","block");
 	}
 	if(componyData.status == 0) {
 		$("#footerList .footer3").bind("click", function() {
-			window.location.href = localhost + '/mine2'; //"mine2.html";
+			window.location.href = localhost + '/mine2';//"mine2.html";
 		})
 		$(".insetComponyInfor1 .taxInformation").css("display", "none");
 		$(".insetComponyInfor1 .taxInformation2").css("display", "block");
@@ -902,27 +908,27 @@ $(document).ready(function() {
 		$(".taxStepList2 .taxStepBottom").css("display", "block");
 		$("#taxStep .taxStepList1").removeClass("active3");
 		$("#taxStep .taxStepList2").addClass("active3");
-		$(".taxStepList3 .taxStepBtn").attr("disabled", true);
-		$(".taxStepList4 .taxStepBtn").attr("disabled", true);
+		$(".taxStepList3 .taxStepBtn").attr("disabled",true);
+		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
 		$(".insetComponyInfor .insetComponyInfor1").css("display", "none");
 		$(".insetComponyInfor .insetComponyInfor2").css("display", "block");
-		$(".taxStepList .taxMask3").css("display", "block");
-		$(".taxStepList .taxMask4").css("display", "block");
-		if(componyData.uniformnumber == "0") {
-			$(".taxInformation2 .componyRenzheng").css("display", "block");
-			$(".taxInformation2 .componyRenzheng1").css("display", "none");
-			$(".taxInformation2 .componyRenzheng2").css("display", "none");
-			$(".taxInformation2 .componyRenzheng3").css("display", "none");
-		} else {
-			$(".taxInformation2 .componyRenzheng").css("display", "none");
-			$(".taxInformation2 .componyRenzheng1").css("display", "none");
-			$(".taxInformation2 .componyRenzheng2").css("display", "none");
-			$(".taxInformation2 .componyRenzheng3").css("display", "block");
+		$(".taxStepList .taxMask3").css("display","block");
+		$(".taxStepList .taxMask4").css("display","block");
+		if(componyData.uniformnumber=="0"){
+			$(".taxInformation2 .componyRenzheng").css("display","block");
+			$(".taxInformation2 .componyRenzheng1").css("display","none");
+			$(".taxInformation2 .componyRenzheng2").css("display","none");
+			$(".taxInformation2 .componyRenzheng3").css("display","none");
+		}else{
+			$(".taxInformation2 .componyRenzheng").css("display","none");
+			$(".taxInformation2 .componyRenzheng1").css("display","none");
+			$(".taxInformation2 .componyRenzheng2").css("display","none");
+			$(".taxInformation2 .componyRenzheng3").css("display","block");
 		}
 	}
 	if(componyData.status == 1) {
 		$("#footerList .footer3").bind("click", function() {
-			window.location.href = localhost + '/mine2'; //"mine2.html";
+			window.location.href = localhost + '/mine2';//"mine2.html";
 		})
 		$(".insetComponyInfor1 .taxInformation").css("display", "none");
 		$(".insetComponyInfor1 .taxInformation2").css("display", "block");
@@ -933,20 +939,20 @@ $(document).ready(function() {
 		$(".taxStepList2 .taxStepBottom").css("display", "block");
 		$("#taxStep .taxStepList1").removeClass("active3");
 		$("#taxStep .taxStepList2").addClass("active3");
-		$(".taxStepList3 .taxStepBtn").attr("disabled", true);
-		$(".taxStepList4 .taxStepBtn").attr("disabled", true);
+		$(".taxStepList3 .taxStepBtn").attr("disabled",true);
+		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
 		$(".insetComponyInfor .insetComponyInfor1").css("display", "none");
 		$(".insetComponyInfor .insetComponyInfor2").css("display", "block");
-		$(".taxStepList .taxMask3").css("display", "block");
-		$(".taxStepList .taxMask4").css("display", "block");
-		$(".taxInformation2 .componyRenzheng").css("display", "none");
-		$(".taxInformation2 .componyRenzheng2").css("display", "block");
-		$(".taxStepList2").css("z-index", 0);
-		$(".taxStepList3").css("z-index", 1);
+		$(".taxStepList .taxMask3").css("display","block");
+		$(".taxStepList .taxMask4").css("display","block");
+		$(".taxInformation2 .componyRenzheng").css("display","none");
+		$(".taxInformation2 .componyRenzheng2").css("display","block");
+		$(".taxStepList2").css("z-index",0);
+		$(".taxStepList3").css("z-index",1);
 	}
 	if(componyData.status == 2) {
 		$("#footerList .footer3").bind("click", function() {
-			window.location.href = localhost + '/mine';
+			window.location.href = localhost + '/mine'; 
 		})
 		$(".insetComponyInfor1 .taxInformation").css("display", "none");
 		$(".insetComponyInfor1 .taxInformation2").css("display", "block");
@@ -955,8 +961,8 @@ $(document).ready(function() {
 		$(".taxStepList2 .taxStepBtn").css("color", "#12AAEB");
 		$(".taxStepList2 img").attr("src", "img/21.png");
 		$(".taxStepList2 .taxStepBottom").css("display", "block");
-		$(".taxStepList3 .taxStepBtn").attr("disabled", true);
-		/*$(".taxStepList4 .taxStepBtn").attr("disabled", true);*/
+		$(".taxStepList3 .taxStepBtn").attr("disabled",true);
+		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
 		$("#taxStep .taxStepList1").removeClass("active3");
 		$("#taxStep .taxStepList2").addClass("active3");
 		$(".insetComponyInfor .insetComponyInfor1").css("display", "none");
@@ -977,8 +983,8 @@ $(document).ready(function() {
 			$("#taxStep .taxStepList1").removeClass("active3");
 			$("#taxStep .taxStepList2").removeClass("active3");
 			$("#taxStep .taxStepList3").addClass("active3");
-			$(".taxStepList .taxMask3").css("display", "none");
-			$(".taxStepList .taxMask4").css("display", "block");
+			$(".taxStepList .taxMask3").css("display","none");
+			$(".taxStepList .taxMask4").css("display","block");
 		}
 		if(orderList.code == 200) {
 			$(".taxStepList4 .taxStepBtn").css("color", "#12AAEB");
@@ -1000,25 +1006,25 @@ $(document).ready(function() {
 			$("#taxStep .taxStepList2").removeClass("active3");
 			$("#taxStep .taxStepList3").removeClass("active3");
 			$("#taxStep .taxStepList4").addClass("active3");
-			$(".taxStepList .taxMask3").css("display", "none");
-			$(".taxStepList .taxMask4").css("display", "none");
+			$(".taxStepList .taxMask3").css("display","none");
+			$(".taxStepList .taxMask4").css("display","none");
 		}
-		if(componyData.uniformnumber !== "0") {
-			$(".taxInformation2 .componyRenzheng").css("display", "none");
-			$(".taxInformation2 .componyRenzheng1").css("display", "block");
-			var enterprisePhotoBox = document.getElementById("enterprisePhotoBox");
-			enterprisePhotoBox.innerHTML =
-				'<img src="' + componyData.imageBase64 + '"/>\
+		if(componyData.uniformnumber!=="0"){
+			$(".taxInformation2 .componyRenzheng").css("display","none");
+			$(".taxInformation2 .componyRenzheng1").css("display","block");
+			var enterprisePhotoBox=document.getElementById("enterprisePhotoBox");
+			enterprisePhotoBox.innerHTML=
+			'<img src="'+componyData.imageBase64+'"/>\
 			<img src="img/lock.png" class="lock"/>'
-
-			var enterpriseNumBox = document.getElementById("enterpriseNumBox");
-			enterpriseNumBox.innerHTML =
-				'<input type="text" readonly="readonly" value="' + componyData.uniformnumber + '"/>'
+			
+			var enterpriseNumBox=document.getElementById("enterpriseNumBox");
+			enterpriseNumBox.innerHTML=
+			'<input type="text" readonly="readonly" value="'+componyData.uniformnumber+'"/>'
 		}
 	}
 	if(componyData.status == 3) {
 		$("#footerList .footer3").bind("click", function() {
-			window.location.href = localhost + '/mine2'; //"mine2.html";
+			window.location.href = localhost + '/mine2';//"mine2.html";
 		})
 		$(".insetComponyInfor .insetComponyInfor1").css("display", "none");
 		$(".insetComponyInfor .insetComponyInfor2").css("display", "block");
@@ -1026,8 +1032,8 @@ $(document).ready(function() {
 		$(".insetComponyInfor1 .taxInformation2").css("display", "block");
 		$(".taxInformation2 .componyRenzheng").css("display", "none");
 		$(".taxInformation2 .componyRenzheng2").css("display", "none");
-		$("#chComponyInfor .chComponyInfor3").css("display", "none");
-		$("#chComponyInfor .chComponyInfor4").css("display", "none");
+		$("#chComponyInfor .chComponyInfor3").css("display","none");
+		$("#chComponyInfor .chComponyInfor4").css("display","none");
 		$(".taxStepList1 .taxStepBtn").css("color", "#5682b2");
 		$(".taxStepList1 img").attr("src", "img/12.png");
 		$(".taxStepList2 .taxStepBtn").css("color", "#12AAEB");
@@ -1035,61 +1041,61 @@ $(document).ready(function() {
 		$(".taxStepList2 .taxStepBottom").css("display", "block");
 		$("#taxStep .taxStepList1").removeClass("active3");
 		$("#taxStep .taxStepList2").addClass("active3");
-		$(".taxStepList3 .taxStepBtn").attr("disabled", true);
-		$(".taxStepList4 .taxStepBtn").attr("disabled", true);
-		$(".taxStepList .taxMask3").css("display", "block");
-		$(".taxStepList .taxMask4").css("display", "block");
+		$(".taxStepList3 .taxStepBtn").attr("disabled",true);
+		$(".taxStepList4 .taxStepBtn").attr("disabled",true);
+		$(".taxStepList .taxMask3").css("display","block");
+		$(".taxStepList .taxMask4").css("display","block");
 	}
 	/*企业认证*/
 	/*上传发票1打开和关闭*/
-	$(".taxInformation2 .componyRenzheng").bind("click", function() {
+	$(".taxInformation2 .componyRenzheng").bind("click",function(){
 		$("#maskBox").css("display", "block");
 		$("#maskBox .enterprise").css("display", "block");
 		$(".enterprise .enterprise1").css("display", "block");
 	})
-	$(".enterprise1 .photoBtn2").bind("click", function() {
+	$(".enterprise1 .photoBtn2").bind("click",function(){
 		$("#maskBox").css("display", "none");
 		$("#maskBox .enterprise").css("display", "none");
 		$(".enterprise .enterprise1").css("display", "none");
 	})
-	$("#photoBtn1").bind("click", function() {
+	$("#photoBtn1").bind("click",function(){
 		if($("#photoBtn1").hasClass("active15")) {
-			$("#loading").css("display", "block");
+			$("#loading").css("display","block");
 			var rawcompanyname = $("#componyName1").html();
 			var rawaddress = $("#componyAdrees1").html();
 			var compayname = $("#cantDo2").html();
 			var englishaddress = $("#cantDo3").html();
 			var contact = $("#componyPeople1").html();
 			var email = $("#componyEmail1").html();
-			var uniformnumber = document.getElementById("creditCode").value;
-			var imageBase64 = document.getElementById("imglist").src;
-			addCompony = addComponyLetterhead(rawcompanyname, rawaddress, compayname, englishaddress, contact, email, imageBase64, uniformnumber);
-
+			var uniformnumber=document.getElementById("creditCode").value;
+			var imageBase64=document.getElementById("imglist").src;
+		addCompony=addComponyLetterhead(rawcompanyname, rawaddress, compayname, englishaddress, contact, email,imageBase64,uniformnumber);
+			
 		} else {
 			alert("信息未填写完整不能提交认证信息")
 		}
-
+		
 	})
-	$(".enterprise3 .photoBtn1").bind("click", function() {
+	$(".enterprise3 .photoBtn1").bind("click",function(){
 		$("#maskBox").css("display", "none");
 		$("#maskBox .enterprise").css("display", "none");
 		$(".enterprise .enterprise3").css("display", "none");
 		window.location.reload();
 	})
-
+	
 	/*上传发票2,重新上传*/
-	$(".taxInformation2 .componyRenzheng2").bind("click", function() {
+	$(".taxInformation2 .componyRenzheng2").bind("click",function(){
 		$("#maskBox").css("display", "block");
 		$("#maskBox .enterprise").css("display", "block");
 		$(".enterprise .enterprise1").css("display", "block");
 	})
 	/*认证成功*/
-	$(".taxInformation2 .componyRenzheng1").bind("click", function() {
+	$(".taxInformation2 .componyRenzheng1").bind("click",function(){
 		$("#maskBox").css("display", "block");
 		$("#maskBox .enterprise").css("display", "block");
 		$(".enterprise .enterprise2").css("display", "block");
 	})
-	$(".enterprise2 .photoBtn1").bind("click", function() {
+	$(".enterprise2 .photoBtn1").bind("click",function(){
 		$("#maskBox").css("display", "none");
 		$("#maskBox .enterprise").css("display", "none");
 		$(".enterprise .enterprise2").css("display", "none");
@@ -1100,43 +1106,43 @@ $(document).ready(function() {
 			$(".insetComponyInfor1 .taxInformation2").css("display", "block");
 		}
 	})
-	/*上传发票*/
+		/*上传发票*/
 	$(".taxStepBtn2").bind("click", function() {
 		$("#uploadPhotoList .smallOne").remove();
 		$("#uploadPhotoList .uploadPhoto").css("display", "block");
 		uploader.refresh();
-
+		
 	})
-
+	
 	$(".taxStepList .taxMask2").bind("click", function() {
-		if(componyData.status == -1) {
+		if(componyData.status == -1){
 			alert("请先注册公司,再上传发票");
 		}
 	})
-
-	/*申请退税*/
+	
+		/*申请退税*/
 	$(".taxStepBtn3").bind("click", function() {
-		if(componyData.status == 2) {
+		if(componyData.status == 2){
 			if(invoice.code == 200) {
 				$(".insetComponyInfor3 .inviceListBox").css("display", "block");
 				$(".insetComponyInfor3 .invoiceInfor").css("display", "none");
 			}
 		}
 	})
-
+	
 	$(".taxStepList .taxMask3").bind("click", function() {
 		if(componyData.status == -1) {
 			alert("请先注册公司,再查看发票");
-		} else if(componyData.status == 0) {
-			if(componyData.uniformnumber == "0") {
+		}else if(componyData.status == 0){
+			if(componyData.uniformnumber=="0"){
 				alert("请先认证公司,再查看发票");
 				$("#maskBox").css("display", "block");
 				$("#maskBox .enterprise").css("display", "block");
 				$(".enterprise .enterprise1").css("display", "block");
-			} else {
+			}else{
 				alert("公司认证中,请等待审核...")
 			}
-		} else if(componyData.status == 1) {
+		}else if(componyData.status == 1){
 			alert("公司认证失败,请重新认证");
 			$("#maskBox").css("display", "block");
 			$("#maskBox .enterprise").css("display", "block");
@@ -1146,16 +1152,16 @@ $(document).ready(function() {
 	$(".taxStepList .taxMask4").bind("click", function() {
 		if(componyData.status == -1) {
 			alert("请先注册公司");
-		} else if(componyData.status == 0) {
-			if(componyData.uniformnumber == "0") {
+		}else if(componyData.status == 0){
+			if(componyData.uniformnumber=="0"){
 				alert("请先认证公司,再查看订单");
 				$("#maskBox").css("display", "block");
 				$("#maskBox .enterprise").css("display", "block");
 				$(".enterprise .enterprise1").css("display", "block");
-			} else {
+			}else{
 				alert("公司认证中,请等待审核...")
 			}
-		} else if(componyData.status == 1) {
+		}else if(componyData.status == 1){
 			alert("公司认证失败,请重新认证");
 			$("#maskBox").css("display", "block");
 			$("#maskBox .enterprise").css("display", "block");
@@ -1164,10 +1170,10 @@ $(document).ready(function() {
 	})
 
 	/*企业退税的步骤*/
-	/*$(".orderInfor4 .orderInforBtn2").bind("click", function() {
+	$(".orderInfor4 .orderInforBtn2").bind("click", function() {
 		$("#maskBox").css("display", "block");
 		$("#maskBox .stepBox").css("display", "block");
-	})*/
+	})
 
 	/*银行账户的关联*/
 	$(".orderInfor4 .orderInforBtn3").bind("click", function() {
@@ -1198,16 +1204,16 @@ $(document).ready(function() {
 			} else if(secondData.bankId == 7) {
 				name = "中国民生银行";
 			}
-
-			if(secondData.bankAccount == 0) {
-				account = ""
-			} else {
-				account = secondData.bankAccount;
+			
+			if(secondData.bankAccount==0){
+				account=""
+			}else{
+				account=secondData.bankAccount;
 			}
 
-			if(secondData.bankId == 0) {
+			if(secondData.bankId == 0){
 				selectBankList.innerHTML =
-					'<li>\
+				'<li>\
 					<p>选择银行：</p>\
 					<select id="selectBankList">\
 						<option value="7">中国民生银行</option>\
@@ -1232,9 +1238,9 @@ $(document).ready(function() {
 					<p>用户名：</p>\
 					<input placeholder="用户名自动获取" id="bankUserName" value="' + componyData.rawcompanyname + '" readonly="readonly"/>\
 				</li>'
-			} else {
+			}else{
 				selectBankList.innerHTML =
-					'<li>\
+				'<li>\
 					<p>选择银行：</p>\
 					<select id="selectBankList" disabled="disabled">\
 						<option value="' + secondData.bankId + '">' + name + '</option>\
@@ -1262,18 +1268,19 @@ $(document).ready(function() {
 				</li>'
 			}
 
-		} else {
+		}else{
 			$("#loading").css("display", "none");
 		}
-		$(".bankAccount")[0].oninput = function() {
+		$(".bankAccount")[0].oninput=function(){
 			var str = $("#bankAccount").val();
 			var re = /[^\d]/gi;
 			if(re.test(str)) {
-				$(".bankAccount")[0].value = "";
+				$(".bankAccount")[0].value="";
 			}
-
+			
 		}
 	})
+	
 
 	$(".bankBoxBtn .bankBoxBtn1").bind("click", function() {
 		$("#loading").css("display", "block");
@@ -1313,9 +1320,9 @@ $(".invoiceInfor2Btn .invoiceInfor2Btn2").bind("click", function() {
 		for(var i = 0; i < invoiceInformation1Div.length; i++) {
 			var orderListVal = {};
 			var InvoiceIDs = [];
-			var TasksID = $(".taskId")[i].value;
+			var TaskID = $(".taskId")[i].value;
 			InvoiceIDs.push($(".InvoiceIDs")[i].value);
-			orderListVal["TasksID"] = TasksID;
+			orderListVal["TaskID"] = TaskID;
 			orderListVal["InvoiceIDs"] = InvoiceIDs;
 			InvoiceTasks.push(orderListVal);
 		}
@@ -1342,167 +1349,472 @@ if(orderList.code == 200) {
 		if(!secondOrder[i].country) {
 			country = "";
 			srcAdress = "";
+			currencysymbol = "";
 			tax = "";
 		} else if(secondOrder[i].country == 36) {
 			country = "澳大利亚";
 			srcAdress = "img/36.png";
+			currencysymbol = "S/.";
 			tax = 500;
 		} else if(secondOrder[i].country == 40) {
 			country = "奥地利";
 			srcAdress = "img/40.png";
+			currencysymbol = "S";
 			tax = 50;
 		} else if(secondOrder[i].country == 56) {
 			country = "比利时";
 			srcAdress = "img/56.png";
+			currencysymbol = "Bi.";
 			tax = 25;
 		} else if(secondOrder[i].country == 124) {
 			country = "加拿大";
 			srcAdress = "img/124.png";
+			currencysymbol = "$";
 			tax = 200;
 		} else if(secondOrder[i].country == 158) {
 			country = "中国台湾";
 			srcAdress = "img/158.png";
+			currencysymbol = "NT$";
 			tax = 5000;
 		} else if(secondOrder[i].country == 208) {
 			country = "丹麦";
 			srcAdress = "img/208.png";
+			currencysymbol = "kr";
 			tax = 400;
 		} else if(secondOrder[i].country == 246) {
 			country = "芬兰";
 			srcAdress = "img/246.png";
+			currencysymbol = "MK.";
 			tax = 40;
 		} else if(secondOrder[i].country == 250) {
 			country = "法国";
 			srcAdress = "img/250.png";
+			currencysymbol = "F";
 			tax = 50;
 		} else if(secondOrder[i].country == 276) {
 			country = "德国";
 			srcAdress = "img/276.png";
+			currencysymbol = "DM";
 			tax = 500;
 		} else if(secondOrder[i].country == 352) {
 			country = "冰岛";
 			srcAdress = "img/352.png";
+			currencysymbol = "I.";
 			tax = 12700;
 		} else if(secondOrder[i].country == 372) {
 			country = "爱尔兰";
 			srcAdress = "img/372.png";
+			currencysymbol = "￡";
 			tax = 25;
 		} else if(secondOrder[i].country == 380) {
 			country = "意大利";
 			srcAdress = "img/380.png";
+			currencysymbol = "₤";
 			tax = 50;
 		} else if(secondOrder[i].country == 392) {
 			country = "日本";
 			srcAdress = "img/392.png";
+			currencysymbol = "¥";
 			tax = 1000;
 		} else if(secondOrder[i].country == 410) {
 			country = "韩国";
 			srcAdress = "img/410.png";
+			currencysymbol = "₩";
 			tax = 300000;
 		} else if(secondOrder[i].country == 470) {
 			country = "马耳他";
 			srcAdress = "img/470.png";
+			currencysymbol = "₤";
 			tax = 23;
 		} else if(secondOrder[i].country == 528) {
 			country = "荷兰";
 			srcAdress = "img/528.png";
+			currencysymbol = "€";
 			tax = 50;
 		} else if(secondOrder[i].country == 554) {
 			country = "新西兰";
 			srcAdress = "img/554.png";
+			currencysymbol = "$";
 			tax = 500;
 		} else if(secondOrder[i].country == 578) {
 			country = "挪威";
 			srcAdress = "img/578.png";
+			currencysymbol = "kr";
 			tax = 200;
 		} else if(secondOrder[i].country == 724) {
 			country = "西班牙";
 			srcAdress = "img/724.png";
+			currencysymbol = "€";
 			tax = 50;
 		} else if(secondOrder[i].country == 752) {
 			country = "瑞典";
 			srcAdress = "img/752.png";
+			currencysymbol = "kr";
 			tax = 500;
 		} else if(secondOrder[i].country == 756) {
 			country = "瑞士";
 			srcAdress = "img/756.png";
+			currencysymbol = "Fr";
 			tax = 250;
 		} else if(secondOrder[i].country == 826) {
 			country = "英国";
 			srcAdress = "img/826.png";
+			currencysymbol = "£";
 			tax = 16;
 		}
-
-		if(!secondOrder[i].countryCurrency) {
-			currencysymbol = "";
-		} else if(secondOrder[i].countryCurrency == "EUR") {
-			currencysymbol = "€";
-		} else if(secondOrder[i].countryCurrency == "AUD") {
-			currencysymbol = "S/.";
-		} else if(secondOrder[i].countryCurrency == "ATS") {
-			currencysymbol = "S";
-		} else if(secondOrder[i].countryCurrency == "BEF") {
-			currencysymbol = "Bi.";
-		} else if(secondOrder[i].countryCurrency == "CAD") {
-			currencysymbol = "$";
-		} else if(secondOrder[i].countryCurrency == "TWD") {
-			currencysymbol = "NT$";
-		} else if(secondOrder[i].countryCurrency == "DKK") {
-			currencysymbol = "kr";
-		} else if(secondOrder[i].countryCurrency == "FIM") {
-			currencysymbol = "MK.";
-		} else if(secondOrder[i].countryCurrency == "FRF") {
-			currencysymbol = "F";
-		} else if(secondOrder[i].countryCurrency == "DEM") {
-			currencysymbol = "DM";
-		} else if(secondOrder[i].countryCurrency == "ISK") {
-			currencysymbol = "I.";
-		} else if(secondOrder[i].countryCurrency == "IEP") {
-			currencysymbol = "￡";
-		} else if(secondOrder[i].countryCurrency == "ITL") {
-			currencysymbol = "₤";
-		} else if(secondOrder[i].countryCurrency == "JPY") {
-			currencysymbol = "¥";
-		} else if(secondOrder[i].countryCurrency == "KRW") {
-			currencysymbol = "₩";
-		} else if(secondOrder[i].countryCurrency == "LUF") {
-			currencysymbol = "₣";
-		} else if(secondOrder[i].countryCurrency == "Lm") {
-			currencysymbol = "₤";
-		} else if(secondOrder[i].countryCurrency == "EUR") {
-			currencysymbol = "€";
-		} else if(secondOrder[i].countryCurrency == "NZD") {
-			currencysymbol = "$";
-		} else if(secondOrder[i].countryCurrency == "NOK") {
-			currencysymbol = "kr";
-		} else if(secondOrder[i].countryCurrency == "EUR") {
-			currencysymbol = "€";
-		} else if(secondOrder[i].countryCurrency == "SEK") {
-			currencysymbol = "kr";
-		} else if(secondOrder[i].countryCurrency == "CHF") {
-			currencysymbol = "Fr";
-		} else if(secondOrder[i].countryCurrency == "GBP") {
-			currencysymbol = "£";
-		}
-
+		var stepList = document.getElementById("stepList");
+		stepList.innerHTML = '';
 		if(secondOrder[i].status == 0) {
 			step = "订单申请";
+			stepList.innerHTML =
+				'<li>\
+							<div class="active7"></div>\
+							<p class="active8">订单申请</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书寄发</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书回传</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书确认</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>订单寄发国外</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税务局已送件</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税金返还</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>客户入账</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>确认结案</p>\
+						</li>'
 		} else if(secondOrder[i].status == 1) {
 			step = "授权书寄发";
+			stepList.innerHTML =
+				'<li>\
+							<div></div>\
+							<p>订单申请</p>\
+						</li>\
+						<li>\
+							<div class="active7"></div>\
+							<p class="active8">授权书寄发</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书回传</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书确认</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>订单寄发国外</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税务局已送件</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税金返还</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>客户入账</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>确认结案</p>\
+						</li>'
 		} else if(secondOrder[i].status == 2) {
 			step = "授权书回传";
+			stepList.innerHTML =
+				'<li>\
+							<div></div>\
+							<p>订单申请</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书寄发</p>\
+						</li>\
+						<li>\
+							<div class="active7"></div>\
+							<p class="active8">授权书回传</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书确认</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>订单寄发国外</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税务局已送件</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税金返还</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>客户入账</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>确认结案</p>\
+						</li>'
 		} else if(secondOrder[i].status == 3) {
 			step = "授权书确认";
+			stepList.innerHTML =
+				'<li>\
+							<div></div>\
+							<p>订单申请</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书寄发</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书回传</p>\
+						</li>\
+						<li>\
+							<div class="active7"></div>\
+							<p class="active8">授权书确认</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>订单寄发国外</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税务局已送件</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税金返还</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>客户入账</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>确认结案</p>\
+						</li>'
 		} else if(secondOrder[i].status == 4) {
 			step = "订单寄发国外";
+			stepList.innerHTML =
+				'<li>\
+							<div></div>\
+							<p>订单申请</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书寄发</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书回传</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书确认</p>\
+						</li>\
+						<li>\
+							<div class="active7"></div>\
+							<p class="active8">订单寄发国外</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税务局已送件</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税金返还</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>客户入账</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>确认结案</p>\
+						</li>'
 		} else if(secondOrder[i].status == 5) {
 			step = "税务局已送件";
+			stepList.innerHTML =
+				'<li>\
+							<div></div>\
+							<p>订单申请</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书寄发</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书回传</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书确认</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>订单寄发国外</p>\
+						</li>\
+						<li>\
+							<div class="active7"></div>\
+							<p class="active8">税务局已送件</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税金返还</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>客户入账</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>确认结案</p>\
+						</li>'
 		} else if(secondOrder[i].status == 6) {
 			step = "税金返还";
+			stepList.innerHTML =
+				'<li>\
+							<div></div>\
+							<p>订单申请</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书寄发</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书回传</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书确认</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>订单寄发国外</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税务局已送件</p>\
+						</li>\
+						<li>\
+							<div class="active7"></div>\
+							<p class="active8">税金返还</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>客户入账</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>确认结案</p>\
+						</li>'
 		} else if(secondOrder[i].status == 7) {
 			step = "客户入账";
+			stepList.innerHTML =
+				'<li>\
+							<div></div>\
+							<p>订单申请</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书寄发</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书回传</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书确认</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>订单寄发国外</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税务局已送件</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税金返还</p>\
+						</li>\
+						<li>\
+							<div class="active7"></div>\
+							<p class="active8">客户入账</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>确认结案</p>\
+						</li>'
 		} else if(secondOrder[i].status == 8) {
 			step = "确认结案";
+			stepList.innerHTML =
+				'<li>\
+							<div></div>\
+							<p>订单申请</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书寄发</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书回传</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>授权书确认</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>订单寄发国外</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税务局已送件</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>税金返还</p>\
+						</li>\
+						<li>\
+							<div></div>\
+							<p>客户入账</p>\
+						</li>\
+						<li>\
+							<div class="active7"></div>\
+							<p class="active8">确认结案</p>\
+						</li>'
 		}
 
 		var orderList1 = document.createElement("div");
@@ -1518,7 +1830,7 @@ if(orderList.code == 200) {
 			<li class="orderInfor3">' + secondOrder[i].createtime + '</li>\
 			<li class="orderInfor4">\
 				<div class="orderInforBtn1">退税材料</div>\
-				<div class="orderInforBtn2"><input type="hidden" class="orderId" name="orderId" value="' + secondOrder[i].id + '"/>' + step + '</div>\
+				<div class="orderInforBtn2">' + step + '</div>\
 				<div class="orderInforBtn3">付款信息</div>\
 			</li>\
 		</ul>\
@@ -1531,384 +1843,25 @@ if(orderList.code == 200) {
 	//alert("网络错误");
 }
 
-/*企业退税的步骤*/
-$(".orderInfor4 .orderInforBtn2").bind("click", function() {
-	$("#maskBox").css("display", "block");
-	$("#maskBox .stepBox").css("display", "block");
-	var orderID = $(this).find('[name="orderId"]').val();
-	var orderStepList = invoiceOrderModify(orderID);
-	console.log(orderStepList);
-	if(orderStepList.code == 200) {
-		var stepList = document.getElementById("stepList");
-		stepList.innerHTML = '';
-		var secondOrder = orderStepList.data;
-		if(secondOrder.status == 0) {
-			stepList.innerHTML =
-				'<li>\
-								<div class="active7"></div>\
-								<p class="active8">订单申请</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书寄发</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书回传</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书确认</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>订单寄发国外</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>税务局已送件</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>税金返还</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>客户入账</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>确认结案</p>\
-							</li>'
-		} else if(secondOrder.status == 1) {
-			stepList.innerHTML =
-				'<li>\
-								<div></div>\
-								<p>订单申请</p>\
-							</li>\
-							<li>\
-								<div class="active7"></div>\
-								<p class="active8">授权书寄发</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书回传</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书确认</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>订单寄发国外</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>税务局已送件</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>税金返还</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>客户入账</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>确认结案</p>\
-							</li>'
-		} else if(secondOrder.status == 2) {
-			stepList.innerHTML =
-				'<li>\
-								<div></div>\
-								<p>订单申请</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书寄发</p>\
-							</li>\
-							<li>\
-								<div class="active7"></div>\
-								<p class="active8">授权书回传</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书确认</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>订单寄发国外</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>税务局已送件</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>税金返还</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>客户入账</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>确认结案</p>\
-							</li>'
-		} else if(secondOrder.status == 3) {
-			stepList.innerHTML =
-				'<li>\
-								<div></div>\
-								<p>订单申请</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书寄发</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书回传</p>\
-							</li>\
-							<li>\
-								<div class="active7"></div>\
-								<p class="active8">授权书确认</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>订单寄发国外</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>税务局已送件</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>税金返还</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>客户入账</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>确认结案</p>\
-							</li>'
-		} else if(secondOrder.status == 4) {
-			stepList.innerHTML =
-				'<li>\
-								<div></div>\
-								<p>订单申请</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书寄发</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书回传</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书确认</p>\
-							</li>\
-							<li>\
-								<div class="active7"></div>\
-								<p class="active8">订单寄发国外</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>税务局已送件</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>税金返还</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>客户入账</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>确认结案</p>\
-							</li>'
-		} else if(secondOrder.status == 5) {
-			stepList.innerHTML =
-				'<li>\
-								<div></div>\
-								<p>订单申请</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书寄发</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书回传</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书确认</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>订单寄发国外</p>\
-							</li>\
-							<li>\
-								<div class="active7"></div>\
-								<p class="active8">税务局已送件</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>税金返还</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>客户入账</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>确认结案</p>\
-							</li>'
-		} else if(secondOrder.status == 6) {
-			stepList.innerHTML =
-				'<li>\
-								<div></div>\
-								<p>订单申请</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书寄发</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书回传</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>授权书确认</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>订单寄发国外</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>税务局已送件</p>\
-							</li>\
-							<li>\
-								<div class="active7"></div>\
-								<p class="active8">税金返还</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>客户入账</p>\
-							</li>\
-							<li>\
-								<div></div>\
-								<p>确认结案</p>\
-							</li>'
-		} else if(secondOrder.status == 7) {
-			stepList.innerHTML =
-				'<li>\
-					<div></div>\
-					<p>订单申请</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>授权书寄发</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>授权书回传</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>授权书确认</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>订单寄发国外</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>税务局已送件</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>税金返还</p>\
-				</li>\
-				<li>\
-					<div class="active7"></div>\
-					<p class="active8">客户入账</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>确认结案</p>\
-				</li>'
-		} else if(secondOrder.status == 8) {
-			stepList.innerHTML =
-				'<li>\
-					<div></div>\
-					<p>订单申请</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>授权书寄发</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>授权书回传</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>授权书确认</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>订单寄发国外</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>税务局已送件</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>税金返还</p>\
-				</li>\
-				<li>\
-					<div></div>\
-					<p>客户入账</p>\
-				</li>\
-				<li>\
-					<div class="active7"></div>\
-					<p class="active8">确认结案</p>\
-				</li>'
-		}
-	}
-})
-
 //base64Codes:发票图檔Base64Code
 function uploadInvoiceImageFiles1(base64Codes) {
 	var result = "";
-	var data = {
-		base64Codes: JSON.stringify(base64Codes)
-	};
-	var url = localhost + "/invoice/uploadInvoiceImageFiles";
+	var data = {base64Codes: JSON.stringify(base64Codes)};
+	var url = localhost+"/invoice/uploadInvoiceImageFiles";
 	getDataAJAX(url, "POST", data, true, function(resultData) {
-		/*	result = resultData;*/
+	/*	result = resultData;*/
 		//{"data":[{"companyno":"3127","errMessage":"储存发票错误、取消上传","imageBinaryCodes":"data:image/png;base64,"}],"code":"400"}
 		//{"data":"作业成功" ,"code":"200"}
-		result = (JSON.parse(resultData));
+		result=(JSON.parse(resultData));
 		clearInterval(process);
-		if(result.code == 200) {
+		if(result.code==200){
 			$(".uploadMask .uploadMask1").css("display", "none");
 			$(".uploadMask .uploadMask3").css("display", "none");
 			$(".uploadMask .uploadMask2").css("display", "block");
 			$("#uploadPhotoList .uploadPhoto").css("display", "blcok")
 			$("#uploadPhotoList").children(".smallOne").remove();
-			$(".uploadMask2 .maskBtn1").bind("click", function() {
-				$("maskBox").css("display", "none");
+			$(".uploadMask2 .maskBtn1").bind("click",function(){
+				$("maskBox").css("display","none");
 				$(".uploadMask .uploadMask2").css("display", "none");
 				window.location.reload();
 				/*发票列表*/
@@ -1921,19 +1874,19 @@ function uploadInvoiceImageFiles1(base64Codes) {
 				$("#taxStep .taxStepList2").removeClass("active3");
 				$("#taxStep .taxStepList3").addClass("active3");*/
 			})
-
-		} else if(result.code == 400) {
+			
+		}else if(result.code==400){
 			$(".uploadMask .uploadMask1").css("display", "none");
 			$(".uploadMask .uploadMask2").css("display", "none");
 			$(".uploadMask .uploadMask3").css("display", "block");
-			var imgFalse = document.getElementById("imgFalse");
-			imgFalse.innerHTML = "";
+			var imgFalse=document.getElementById("imgFalse");
+			imgFalse.innerHTML="";
 			console.log(result);
-			var resultFalse = result.data;
-			for(var i = 0; i < resultFalse.length; i++) {
-				var ImgUpload = document.createElement("span");
-				ImgUpload.innerHTML =
-					'<img class="imgList2" src="' + resultFalse[i].imageBinaryCodes + '">'
+			var resultFalse=result.data;
+			for(var i=0;i<resultFalse.length;i++){
+				var ImgUpload=document.createElement("span");
+				ImgUpload.innerHTML=
+				'<img class="imgList2" src="'+resultFalse[i].imageBinaryCodes+'">'
 				imgFalse.appendChild(ImgUpload);
 			}
 		}

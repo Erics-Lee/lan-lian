@@ -465,18 +465,7 @@ function InvoicesTasksQueryA() {
 	})
 }
 
-/*查看订单步骤*/
-function invoiceOrderModify(orderID) {
-    var result = "";
-    var data = {
-        orderID:orderID
-    };
-    var url = localhost+"/order/invoiceOrderModify";
-    getDataAJAX(url, "GET", data, false, function(resultData) {
-        result = resultData;
-    });
-    return JSON.parse(result);
-}
+
 //发票详情
 function invoiceQuery(taskid,invoiceid) {
     var result = "";

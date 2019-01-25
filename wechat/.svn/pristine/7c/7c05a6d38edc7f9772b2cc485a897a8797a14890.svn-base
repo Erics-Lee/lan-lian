@@ -627,13 +627,13 @@
 		<script type="text/javascript" src="js/tax.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				/*window.onpageshow=function(e){
+				window.onpageshow=function(e){
 				    var a=e||window.event;
 				    console.log(a.persisted);
 				    if(a.persisted){
 				        window.location.refresh();
 				    }
-				}*/
+				}
 				if($('#emailModel').html() != ''){
 					$('#componyEmail').val($('#emailModel').html());
 					/*$('#componyEmail').attr("disabled",true);*/

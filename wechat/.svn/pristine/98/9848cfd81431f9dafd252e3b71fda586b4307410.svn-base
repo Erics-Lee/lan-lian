@@ -242,7 +242,7 @@
 										<div class="invoiceInfor2Btn1">
 											<div id="invoiceInfor2Btn1Div" class="active12"></div>
 											<p>合计：</p>
-											<p><span id="moneyAll2"></span><span id="moneyAll" class="moneyAll">0</span></p>
+											<p>$<span id="moneyAll" class="moneyAll">0</span></p>
 										</div>
 										<div class="invoiceInfor2Btn2">申请退税</div>
 									</div>
@@ -627,13 +627,13 @@
 		<script type="text/javascript" src="js/tax.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				/*window.onpageshow=function(e){
+				window.onpageshow=function(e){
 				    var a=e||window.event;
 				    console.log(a.persisted);
 				    if(a.persisted){
 				        window.location.refresh();
 				    }
-				}*/
+				}
 				if($('#emailModel').html() != ''){
 					$('#componyEmail').val($('#emailModel').html());
 					/*$('#componyEmail').attr("disabled",true);*/
